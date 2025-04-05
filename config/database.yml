@@ -1,0 +1,20 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+  username: postgres
+  password: password
+  host: db
+
+development:
+  <<: *default
+  database: echomood_development
+
+test:
+  <<: *default
+  database: echomood_test
+
+production:
+  <<: *default
+  database: echomood_production
+  password: <%= ENV['POSTGRES_PASSWORD'] %>
