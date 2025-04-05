@@ -41,7 +41,7 @@ gem "thruster", require: false
 # gem "image_processing", "~> 1.2"
 
 gem "devise"
-gem 'bcrypt', '~> 3.1.7'
+gem 'bcrypt', '~> 3.1.20'
 gem 'orm_adapter', '~> 0.5.0'
 gem 'responders', '~> 3.1.1'
 gem 'warden', '~> 1.2.9'
