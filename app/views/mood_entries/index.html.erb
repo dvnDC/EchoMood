@@ -1,0 +1,13 @@
+<h1>Your Mood Entries</h1>
+
+<%= link_to 'New Mood Entry', new_mood_entry_path %>
+
+<ul>
+  <% @mood_entries.each do |entry| %>
+    <li>
+      <%= link_to entry.mood, mood_entry_path(entry) %>
+      - <%= link_to 'Edit', edit_mood_entry_path(entry) %>
+      - <%= link_to 'Delete', mood_entry_path(entry), method: :delete, data: { confirm: 'Are you sure?' } %>
+    </li>
+  <% end %>
+</ul>

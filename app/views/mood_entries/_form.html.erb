@@ -1,0 +1,26 @@
+<%= form_with(model: @mood_entry, local: true) do |form| %>
+  <% if @mood_entry.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@mood_entry.errors.count, "error") %> prohibited this mood_entry from being saved:</h2>
+      <ul>
+        <% @mood_entry.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :mood %>
+    <%= form.text_field :mood %>
+  </div>
+
+  <div>
+    <%= form.label :description %>
+    <%= form.text_area :description %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

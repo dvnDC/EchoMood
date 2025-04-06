@@ -1,0 +1,5 @@
+<h1><%= @mood_entry.mood %></h1>
+<p><%= @mood_entry.description %></p>
+
+<%= link_to 'Edit', edit_mood_entry_path(@mood_entry) %> |
+<%= link_to 'Back to List', mood_entries_path %>
