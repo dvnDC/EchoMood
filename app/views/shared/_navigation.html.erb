@@ -1,0 +1,47 @@
+<!-- Header -->
+<div id="header">
+
+  <!-- Logo -->
+  <%= link_to root_path, id: 'logo' do %>
+    <em>EchoMood</em>
+  <% end %>
+<!-- Nav -->
+<nav id="nav">
+  <ul>
+    <li class="<%= current_page?(home_index_path) ? 'current' : '' %>"><%= link_to 'Home', home_index_path %></li>
+    <li class="<%= params[:controller] == 'articles' ? 'current' : '' %> opener">
+      <a href="#">Articles</a>
+      <ul>
+        <li><a href="#">Lorem dolor</a></li>
+        <li><a href="#">Magna phasellus</a></li>
+        <li><a href="#">Etiam sed tempus</a></li>
+        <li class="opener">
+          <a href="#">Submenu</a>
+          <ul>
+            <li><a href="#">Lorem dolor</a></li>
+            <li><a href="#">Phasellus magna</a></li>
+            <li><a href="#">Magna phasellus</a></li>
+            <li><a href="#">Etiam nisl</a></li>
+            <li><a href="#">Veroeros feugiat</a></li>
+          </ul>
+        </li>
+        <li><a href="#">Veroeros feugiat</a></li>
+      </ul>
+    </li>
+    <li class="<%= current_page?(mood_entries_path) ? 'current' : '' %>"><%= link_to 'Mood Tracking', mood_entries_path %></li>
+    <li class="<%= current_page?(right_sidebar_path) ? 'current' : '' %>"><%= link_to 'Right Sidebar', right_sidebar_path %></li>
+    <li class="<%= current_page?(two_sidebar_path) ? 'current' : '' %>"><%= link_to 'Two Sidebar', two_sidebar_path %></li>
+    <li class="<%= current_page?(no_sidebar_path) ? 'current' : '' %>"><%= link_to 'No Sidebar', no_sidebar_path %></li>
+    <li class="spacer"></li>
+    <li class="spacer"></li>
+    <% if user_signed_in? %>
+      <li><%= link_to "#{current_user.email}", left_sidebar_path %></li>
+      <li><%= link_to 'Logout', destroy_user_session_path, data: { turbo_method: :delete } %></li>
+    <% else %>
+      <li class="<%= current_page?(new_user_session_path) ? 'current' : '' %>"><%= link_to 'Login', new_user_session_path %></li>
+      <li class="<%= current_page?(new_user_registration_path) ? 'current' : '' %>"><%= link_to 'Sing-up', new_user_registration_path %></li>
+    <% end %>
+  </ul>
+</nav>
+
+</div>
