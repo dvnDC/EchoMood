@@ -1,2 +1,106 @@
-<h1>Home#index</h1>
-<p>Find me in app/views/home/index.html.erb</p>
+<!-- Banner -->
+<section id="banner">
+  <header>
+    <h2>EchoMood: <em>Always here for you</em></h2>
+    <a href="#" class="button">Learn More</a>
+  </header>
+</section>
+
+<!-- Highlights -->
+<section class="wrapper style1">
+  <div class="container">
+    <div class="row gtr-200">
+      <section class="col-4 col-12-narrower">
+        <div class="box highlight">
+          <i class="icon solid major fa-paper-plane"></i>
+          <h3>🌿 Mood Tracking</h3>
+          <p>Record your emotions and discover behavioral patterns. Simple, intuitive and daily.</p>
+        </div>
+      </section>
+      <section class="col-4 col-12-narrower">
+        <div class="box highlight">
+          <i class="icon solid major fa-pencil-alt"></i>
+          <h3>🧘 Reflections and Questions</h3>
+          <p>Daily questions to help you get to know yourself better and build inner peace.</p>
+        </div>
+      </section>
+      <section class="col-4 col-12-narrower">
+        <div class="box highlight">
+          <i class="icon solid major fa-wrench"></i>
+          <h3>🧠 Echo AI</h3>
+          <p>Your digital coach who listens, asks questions and helps you reflect on yourself.</p>
+        </div>
+      </section>
+    </div>
+  </div>
+</section>
+
+<!-- Gigantic Heading -->
+<section class="wrapper style2">
+  <div class="container">
+    <header class="major">
+      <h2>Hear yourself again</h2>
+      <p>Stop. Look deep. Take care of your emotions, day by day.</p>
+    </header>
+  </div>
+</section>
+
+<!-- Posts -->
+<section class="wrapper style1">
+  <div class="container">
+    <div class="row">
+      <section class="col-6 col-12-narrower">
+        <div class="box post">
+          <a href="#" class="image left"><%= image_tag 'pic01.jpg', alt: '' %>
+          </a>
+          <div class="inner">
+            <h3>Mood</h3>
+            <p>Discover, analyze and understand your emotions with the intelligent mood journal.</p>
+          </div>
+        </div>
+      </section>
+      <section class="col-6 col-12-narrower">
+        <div class="box post">
+          <a href="#" class="image left"><%= image_tag 'pic02.jpg', alt: '' %></a>
+          <div class="inner">
+            <h3>Mindfulness</h3>
+            <p>Access to relaxation exercises.</p>
+          </div>
+        </div>
+      </section>
+    </div>
+    <div class="row">
+      <section class="col-6 col-12-narrower">
+        <div class="box post">
+          <a href="#" class="image left"><%= image_tag 'pic03.jpg', alt: '' %></a>
+          <div class="inner">
+            <h3>Help</h3>
+            <p>Review of psychoeducational articles.</p>
+          </div>
+        </div>
+      </section>
+      <section class="col-6 col-12-narrower">
+        <div class="box post">
+          <a href="#" class="image left"><%= image_tag 'pic04.jpg', alt: '' %></a>
+          <div class="inner">
+            <h3>Peace</h3>
+            <p>We live fast. Emotions fade into the background. EchoMood helps you come back to yourself – through
+              simplicity, daily attention and mindfulness.</p>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="cta" class="wrapper style3">
+  <div class="container">
+    <header>
+      <h2>Welcome back, <%= current_user.email %> 🌞
+        How are you feeling today?</h2>
+      <a href="#" class="button">Answer</a>
+    </header>
+  </div>
+</section>
+
