@@ -1,0 +1,332 @@
+/* Main containers */
+.emotion-entry-form-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.emotion-form {
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    padding: 25px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+}
+
+/* Visualization of emotions */
+.emotion-quadrants {
+    position: relative;
+    width: 300px;
+    height: 300px;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    margin: 30px auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    overflow: hidden;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+
+.quadrant {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+}
+
+.q1 {
+    background-color: rgba(255, 193, 7, 0.2);
+    border-bottom: 1px solid #ddd;
+    border-left: 1px solid #ddd;
+}
+.q2 {
+    background-color: rgba(220, 53, 69, 0.2);
+    border-bottom: 1px solid #ddd;
+}
+.q3 {
+    background-color: rgba(108, 117, 125, 0.2);
+}
+.q4 {
+    background-color: rgba(40, 167, 69, 0.2);
+    border-left: 1px solid #ddd;
+}
+
+.marker {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-color: #007bff;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    left: 50%;
+    top: 50%;
+    pointer-events: none;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.3);
+    transition: all 0.2s ease-out;
+}
+
+/* Sliders */
+.emotion-sliders {
+    max-width: 500px;
+    margin: 30px auto;
+}
+
+.slider-group {
+    margin-bottom: 35px;
+    background-color: white;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+}
+
+.slider-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #333;
+}
+
+.slider-labels {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    font-size: 12px;
+    color: #666;
+}
+
+.slider {
+    width: 100%;
+    height: 8px;
+    -webkit-appearance: none;
+    appearance: none;
+    background: #ddd;
+    outline: none;
+    border-radius: 4px;
+}
+
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    background: #007bff;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.slider::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    background: #007bff;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.slider::-webkit-slider-thumb:hover {
+    background: #0056b3;
+}
+
+.slider::-moz-range-thumb:hover {
+    background: #0056b3;
+}
+
+.value-display {
+    text-align: center;
+    margin-top: 10px;
+    font-weight: bold;
+    color: #007bff;
+}
+
+/* Predicting emotions */
+.emotion-prediction {
+    margin: 30px 0;
+    text-align: center;
+    background-color: white;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.emotion-prediction p {
+    margin-bottom: 10px;
+    color: #555;
+}
+
+.emotion-name {
+    font-size: 28px;
+    font-weight: bold;
+    color: #007bff;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.05);
+}
+
+/* List of entries */
+.entries-list {
+    margin-top: 30px;
+}
+
+.entry-card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    background-color: #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.entry-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+}
+
+.entry-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+}
+
+.entry-date {
+    font-weight: bold;
+    color: #444;
+}
+
+.entry-emotion {
+    font-weight: bold;
+    color: #007bff;
+}
+
+.entry-values {
+    display: flex;
+    margin-bottom: 15px;
+}
+
+.entry-value {
+    margin-right: 25px;
+    background-color: #f5f8ff;
+    padding: 5px 10px;
+    border-radius: 4px;
+}
+
+.entry-value .label {
+    font-weight: bold;
+    margin-right: 5px;
+    color: #555;
+}
+
+.entry-notes {
+    padding: 15px;
+    background-color: #f8f9fa;
+    border-radius: 6px;
+    margin-bottom: 15px;
+    color: #555;
+    font-style: italic;
+}
+
+.entry-actions {
+    display: flex;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.entry-actions a {
+    color: #007bff;
+    text-decoration: none;
+    transition: color 0.2s;
+    display: inline-flex;
+    align-items: center;
+}
+
+.entry-actions a:hover {
+    color: #0056b3;
+}
+
+/* Form buttons */
+.form-actions {
+    margin-top: 30px;
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+}
+
+.button {
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+}
+
+.button.primary {
+    background-color: #007bff;
+    color: white;
+}
+
+.button.primary:hover {
+    background-color: #0056b3;
+}
+
+.button.secondary {
+    background-color: #6c757d;
+    color: white;
+}
+
+.button.secondary:hover {
+    background-color: #5a6268;
+}
+
+/* Form groups */.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 600;
+    color: #333;
+}
+
+.form-group input[type="date"],
+.form-group input[type="time"],
+.form-group textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.form-group textarea {
+    resize: vertical;
+}
+
+/* Error messages */
+.error-messages {
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    border: 1px solid #f5c6cb;
+}
+
+.error-messages h2 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.error-messages ul {
+    margin-left: 20px;
+}
