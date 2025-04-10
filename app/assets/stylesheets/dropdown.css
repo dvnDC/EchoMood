@@ -1,0 +1,95 @@
+/* Basic styles for dropdown menu */
+#nav ul li ul {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1000;
+    min-width: 200px;
+    background-color: #252122; /* Dark background, typical for HTML5 UP templates */
+    border: 1px solid #444;
+    border-radius: 4px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+    padding: 5px 0;
+    margin-top: 1px;
+}
+
+/* Show submenu when hovering over parent element */
+#nav ul li:hover > ul {
+    display: block;
+}
+
+/* Styles for elements inside dropdown */
+#nav ul li ul li {
+    display: block;
+    width: 100%;
+    border-bottom: 1px solid #333;
+}
+
+#nav ul li ul li:last-child {
+    border-bottom: none;
+}
+
+/* Style for links inside dropdown */
+#nav ul li ul li a {
+    display: block;
+    padding: 10px 15px;
+    color: #aaa !important; /* Light gray text, important to override other styles */
+    text-decoration: none;
+    font-size: 0.9em;
+    transition: all 0.2s ease;
+}
+
+#nav ul li ul li a:hover {
+    background-color: #333;
+    color: #fff !important;
+}
+
+/* Styles for nested submenus */
+#nav ul li ul li ul {
+    top: 0;
+    left: 100%;
+    margin-top: -1px;
+    margin-left: 1px;
+}
+
+/* Arrow indicator for main menu */
+#nav > ul > li.opener > a:after {
+    content: ' ▼';
+    font-size: 0.7em;
+    opacity: 0.7;
+    vertical-align: middle;
+    margin-left: 4px;
+}
+
+/* Arrow indicator for submenu */
+#nav ul li ul li.opener > a:after {
+    content: ' ►';
+    font-size: 0.7em;
+    opacity: 0.7;
+    float: right;
+    margin-top: 3px;
+}
+
+/* Dropdown appearance animation */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-5px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+#nav ul li:hover > ul {
+    animation: fadeIn 0.2s ease-out forwards;
+}
+
+/* Preserve spacing in main menu */
+#nav > ul > li {
+    margin: 0 5px;
+}
+
+/* Ensure submenu visibility outside container if needed */
+#nav {
+    overflow: visible !important;
+}
+#nav > ul {
+    overflow: visible !important;
+}
