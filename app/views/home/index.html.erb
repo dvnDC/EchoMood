@@ -97,9 +97,17 @@
 <section id="cta" class="wrapper style3">
   <div class="container">
     <header>
-      <h2>Welcome back, <%= current_user.email %> 🌞
-        How are you feeling today?</h2>
-      <a href="#" class="button">Answer</a>
+      <% if user_signed_in? %>
+        <h2>Welcome back, <%= current_user.email %> 🌞
+          How are you feeling today?</h2>
+        <a href="#" class="button">Answer</a>
+      <% else %>
+        <h2>Welcome to EchoMood 🌞
+          Track your emotional well-being</h2>
+        <br>
+        <%= link_to "Sign in", new_user_session_path, class: "button" %>
+        <%= link_to "Create account", new_user_registration_path, class: "button" %>
+      <% end %>
     </header>
   </div>
 </section>
