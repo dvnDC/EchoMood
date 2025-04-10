@@ -3,10 +3,6 @@ Rails.application.routes.draw do
   get "home/index"
   root "home#index"
 
-  get 'right-sidebar', to: 'home#right_sidebar'
-  get 'two-sidebar', to: 'home#two_sidebar'
-  get 'no-sidebar', to: 'home#no_sidebar'
-
   get 'articles', to: 'articles#index', as: :articles
   get 'articles/:id', to: 'articles#show', as: :article
 
