@@ -2,7 +2,33 @@ class MoodEntriesController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @mood_entries = current_user.mood_entries
+    @mood_entries = current_user.mood_entries.order(created_at: :asc)
+    @recent_mood_entries = current_user.mood_entries.order(created_at: :desc).limit(5)
+
+    # Get the last 14 days of mood entries for the chart
+    recent_entries = current_user.mood_entries
+                                 .where(entry_date: 14.days.ago.to_date..Date.today)
+                                 .order(entry_date: :asc)
+
+    # Prepare data for the chart
+    @dates = recent_entries.map { |entry| entry.entry_date.strftime("%b %d") }
+    @mood_scores = recent_entries.map(&:mood_level)
+
+    # If no entries, provide empty arrays to avoid errors
+    @dates ||= []
+    @mood_scores ||= []
+
+    # Hard-coded data for quadrant chart
+    @points = [
+      { x: -8, y: 6, label: "Point A" },
+      { x: 5, y: 7, label: "Point B" },
+      { x: -3, y: -4, label: "Point C" },
+      { x: 7, y: -8, label: "Point D" },
+      { x: 2, y: -2, label: "Point E" },
+      { x: -6, y: -7, label: "Point F" },
+      { x: -5, y: 2, label: "Point G" },
+      { x: 4, y: 3, label: "Point H" }
+    ]
   end
 
   def show
