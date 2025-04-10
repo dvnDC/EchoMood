@@ -5,6 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_many :mood_entries, dependent: :destroy
+  has_many :emotion_entries, dependent: :destroy
 
   validates :email, presence: true
 end
