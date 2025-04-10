@@ -1,0 +1,98 @@
+<!-- Main -->
+<section class="wrapper style1">
+  <div class="container">
+    <div class="row gtr-200">
+      <div class="col-4 col-12-narrower">
+        <div id="sidebar">
+
+          <!-- Sidebar -->
+
+          <section>
+            <h3>My emotions</h3>
+            <p>Take a moment to pause. Think about what’s going on in your world today—both inside and out..</p>
+            <p>Your mood is an important signal. Write it down and give yourself space to understand.</p>
+            <p>✍️ Click “Add a post” when you’re ready.</p>
+            <footer>
+              <%= link_to "Nowy wpis", new_emotion_entry_path, class: "button primary" %>
+            </footer>
+          </section>
+
+          <section>
+            <h3>Your Recent Emotion Entries</h3>
+            <% if @recent_emotion_entries.any? %>
+              <ul class="links">
+                <% @recent_emotion_entries.each do |entry| %>
+                  <li>
+                    <%= link_to emotion_entry_path(entry) do %>
+                      <strong><%= entry.date&.strftime("%b %d") || "No date" %></strong>
+                      <% if entry.entry_time.present? %>
+                        at <%= entry.entry_time.strftime("%I:%M %p") %> -
+                      <% else %>
+                        -
+                      <% end %>
+                      Emotion: <%= entry.valence %> / <%= entry.arousal %>
+                    <% end %>
+                  </li>
+                <% end %>
+              </ul>
+              <p>Tracking your emotions over time helps you recognize patterns and understand your emotional health.</p>
+            <% else %>
+              <p>You haven't added any emotion entries yet. Start your emotion tracking journey today!</p>
+            <% end %>
+            <footer>
+              <%= link_to "View all entries", emotion_entries_path, class: "button" %>
+            </footer>
+          </section>
+
+        </div>
+      </div>
+      <div class="col-8  col-12-narrower imp-narrower">
+        <div id="content">
+
+          <!-- Content -->
+
+          <article>
+            <header>
+              <h2>Wykres emocji</h2>
+              <p>Wizualizacja Twoich emocji na układzie współrzędnych</p>
+            </header>
+            <div data-controller="quadrant-chart">
+              <canvas
+                data-quadrant-chart-target="canvas"
+                data-points='<%= @chart_data.to_json %>'
+                style="width: 100%; height: 300px;"
+              ></canvas>
+            </div>
+
+            <% if Rails.env.development? %>
+              <div style="margin-top: 20px; padding: 10px; background-color: #f5f5f5; border: 1px solid #ddd;">
+                <h4>Quadrant Chart Debug Info:</h4>
+                <p>Chart Data: <%= @chart_data.inspect %></p>
+                <p>JSON: <%= @chart_data.to_json %></p>
+              </div>
+            <% end %>
+
+
+
+            <div class="chart-legend" style="margin-top: 20px; padding: 10px; background-color: #f5f5f5; border: 1px solid #ddd;">
+              <h4>Legenda:</h4>
+              <div class="quadrant">
+                <div class="quadrant-label">Q1: Pozytywna energiczność - Radość, podekscytowanie, euforia</div>
+              </div>
+              <div class="quadrant">
+                <div class="quadrant-label">Q2: Negatywna energiczność - Złość, lęk, stres</div>
+              </div>
+              <div class="quadrant">
+                <div class="quadrant-label">Q3: Negatywny spokój - Smutek, przygnębienie, znużenie</div>
+              </div>
+              <div class="quadrant">
+                <div class="quadrant-label">Q4: Pozytywny spokój - Relaks, ukontentowanie, spokój</div>
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
