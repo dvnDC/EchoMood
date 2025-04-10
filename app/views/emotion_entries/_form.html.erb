@@ -1,0 +1,76 @@
+<%= form_with(model: emotion_entry, local: true, class: "emotion-form",
+              data: { controller: "emotion-form" }) do |form| %>
+  <% if emotion_entry.errors.any? %>
+    <div class="error-messages">
+      <h2><%= pluralize(emotion_entry.errors.count, "błąd") %> uniemożliwił zapisanie tego wpisu:</h2>
+      <ul>
+        <% emotion_entry.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= form.label :date, "Data" %>
+    <%= form.date_field :date, required: true %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :entry_time, "Godzina" %>
+    <%= form.time_field :entry_time, required: true %>
+  </div>
+
+  <div class="emotion-slider-container">
+    <h3>Jak się czujesz?</h3>
+
+    <div id="emotion-visual-guide" class="emotion-quadrants">
+      <div class="quadrant q1">Radość/Podekscytowanie</div>
+      <div class="quadrant q2">Złość/Lęk</div>
+      <div class="quadrant q3">Smutek/Przygnębienie</div>
+      <div class="quadrant q4">Spokój/Relaks</div>
+      <div id="emotion-marker" class="marker" data-emotion-form-target="emotionMarker"></div>
+    </div>
+
+    <div class="emotion-sliders">
+      <div class="slider-group">
+        <%= form.label :valence, "Walencja: Od nieprzyjemnych do przyjemnych uczuć" %>
+        <div class="slider-labels">
+          <span>Bardzo nieprzyjemne</span>
+          <span>Neutralne</span>
+          <span>Bardzo przyjemne</span>
+        </div>
+        <%= form.range_field :valence, min: -10, max: 10, step: 1, class: "slider",
+                             data: { emotion_form_target: "valenceSlider", action: "input->emotion-form#updateEmotionDisplay" } %>
+        <div class="value-display">Wartość: <span data-emotion-form-target="valenceValue">0</span></div>
+      </div>
+
+      <div class="slider-group">
+        <%= form.label :arousal, "Pobudzenie: Od spokojnych do energicznych uczuć" %>
+        <div class="slider-labels">
+          <span>Bardzo spokojne</span>
+          <span>Umiarkowane</span>
+          <span>Bardzo energiczne</span>
+        </div>
+        <%= form.range_field :arousal, min: -10, max: 10, step: 1, class: "slider",
+                             data: { emotion_form_target: "arousalSlider", action: "input->emotion-form#updateEmotionDisplay" } %>
+        <div class="value-display">Wartość: <span data-emotion-form-target="arousalValue">0</span></div>
+      </div>
+    </div>
+
+    <div class="emotion-prediction">
+      <p>Na podstawie wybranych wartości, prawdopodobnie czujesz się:</p>
+      <div class="emotion-name" data-emotion-form-target="predictedEmotion">Neutralnie</div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :notes, "Notatki (opcjonalnie)" %>
+    <%= form.text_area :notes, rows: 4, placeholder: "Opisz swoje uczucia lub co mogło je wywołać..." %>
+  </div>
+
+  <div class="form-actions">
+    <%= form.submit "Zapisz", class: "button primary" %>
+    <%= link_to "Anuluj", emotion_entries_path, class: "button secondary" %>
+  </div>
+<% end %>
