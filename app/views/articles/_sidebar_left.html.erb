@@ -1,0 +1,30 @@
+<div class="col-3 col-12-narrower">
+  <div id="sidebar1">
+
+    <!-- Sidebar Left -->
+
+    <section>
+      <h3>Articles</h3>
+      <p>Learn about emotion tracking and how it can help improve your mental wellbeing and self-awareness.</p>
+      <ul>
+        <% @standard_articles.each do |article| %>
+          <li>
+            <%= link_to article[:title], article_path(article[:id]) %>
+          </li>
+        <% end %>
+      </ul>
+      <footer>
+        <%= link_to "View All Articles", articles_path, class: "button" %>
+      </footer>
+    </section>
+
+    <section>
+      <h3>Start Tracking Today</h3>
+      <p>Track your emotions regularly to gain insights into your emotional patterns and triggers.</p>
+      <footer>
+        <%= link_to "Add Mood Entry", new_mood_entry_path, class: "button" %>
+      </footer>
+    </section>
+
+  </div>
+</div>

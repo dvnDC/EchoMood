@@ -1,0 +1,35 @@
+<div class="col-3 col-12-narrower">
+  <div id="sidebar2">
+
+    <!-- Sidebar Right -->
+
+    <section>
+      <h3>Advanced Topics</h3>
+      <p>Dive deeper into emotion tracking with these advanced articles.</p>
+      <ul>
+        <% @advanced_articles.each do |article| %>
+          <li>
+            <%= link_to article[:title], article_path(article[:id]) %>
+          </li>
+        <% end %>
+      </ul>
+      <footer>
+        <%= link_to "Explore More", articles_path, class: "button" %>
+      </footer>
+    </section>
+
+    <section>
+      <h3>Resources</h3>
+      <p>Additional resources to help you on your emotion tracking journey.</p>
+      <ul>
+        <li><%= link_to "Resources and Further Reading", article_path('resources') %></li>
+        <li><%= link_to "Emotion Map", emotion_entries_path %></li>
+        <li><%= link_to "Mood History", mood_entries_path %></li>
+      </ul>
+      <footer>
+        <%= link_to "View Resources", article_path('resources'), class: "button" %>
+      </footer>
+    </section>
+
+  </div>
+</div>
