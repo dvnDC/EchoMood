@@ -2,10 +2,16 @@
 <div id="header">
 
   <!-- Logo -->
-  <%= link_to root_path, id: 'logo' do %>
-    <em>EchoMood</em>
-  <% end %>
-<!-- Nav -->
+  <div class="logo-container">
+    <%= link_to root_path, id: 'logo' do %>
+      <div class="logo-text">
+        <span class="logo-echo">EchoMood</span>
+        <div class="logo-tagline">Track your emotional journey</div>
+      </div>
+    <% end %>
+  </div>
+
+  <!-- Nav -->
 <nav id="nav">
   <ul>
     <li class="<%= current_page?(home_index_path) ? 'current' : '' %>"><%= link_to 'Home', home_index_path %></li>

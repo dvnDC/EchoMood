@@ -1,0 +1,74 @@
+/* Logo and header styling */
+
+#header {
+    margin-top: 0;
+    padding-top: 0;
+    background-color: #37c0fb; /* Turquoise color - adjust to match your theme */
+}
+
+.logo-container {
+    padding: 1.5rem 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(90deg, #37c0fb 0%, #094ebd 100%);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.logo-text {
+    font-size: 2.5rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.logo-echo {
+    color: #ffffff;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+
+.logo-tagline {
+    font-size: 0.9rem;
+    font-weight: 400;
+    font-style: italic;
+    color: #ffffff;
+    margin-top: 0.25rem;
+    letter-spacing: 0.03em;
+}
+
+#logo {
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+#logo:hover .logo-echo {
+    color: #DBEAFE;
+}
+
+
+/* Adjust navigation to match new header styling */
+#nav {
+    background: #2563EB;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+#nav ul li a {
+    font-weight: 500;
+    letter-spacing: 0.03em;
+}
+
+
+/* For mobile responsiveness */
+@media screen and (max-width: 768px) {
+    .logo-text {
+        font-size: 2rem;
+    }
+
+    .logo-tagline {
+        font-size: 0.8rem;
+    }
+}

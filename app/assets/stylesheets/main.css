@@ -3349,3 +3349,9 @@ input, select, textarea {
 			}
 
 	}
+
+#header {
+	margin-top: 0;
+	padding-top: 0;
+	background-color: #37c0fb; /* Turquoise color - adjust to match your theme */
+}
