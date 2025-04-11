@@ -1,17 +1,48 @@
-<div class="container">
-  <h1>Artykuły i poradniki</h1>
+<!-- Main -->
+<section class="wrapper style1">
+  <div class="container">
+    <div id="content">
+      <header>
+        <h2>Artykuły i poradniki</h2>
+        <p>Dowiedz się więcej o śledzeniu nastrojów i emocji</p>
+      </header>
 
-  <div class="row">
-    <% @articles.each do |article| %>
-      <div class="col-md-4 mb-4">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title"><%= article[:title] %></h5>
-            <p class="card-text">Dowiedz się więcej na temat tego zagadnienia...</p>
-            <%= link_to "Czytaj więcej", article_path(article[:id]), class: "btn btn-primary" %>
-          </div>
+      <div class="row gtr-200">
+
+        <!-- Left column -->
+        <div class="col-6 col-12-narrower">
+          <h3>Podstawowe zagadnienia</h3>
+          <% @standard_articles.each_with_index do |article, index| %>
+            <div class="box post" style="margin-bottom: 20px;">
+              <a href="<%= article_path(article[:id]) %>" class="image left" style="width: 25%; max-width: 150px;">
+                <%= image_tag "pic0#{(index % 4) + 1}.jpg", alt: article[:title], style: "width: 100%; height: auto;" %>
+              </a>
+              <div class="inner">
+                <h4><%= article[:title] %></h4>
+                <p style="font-size: 0.9em; margin-bottom: 8px;">Podstawowe informacje na temat śledzenia nastroju</p>
+                <%= link_to "Czytaj więcej", article_path(article[:id]), class: "button small" %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+
+        <!-- Right column -->
+        <div class="col-6 col-12-narrower">
+          <h3>Zaawansowane tematy</h3>
+          <% @advanced_articles.each_with_index do |article, index| %>
+            <div class="box post" style="margin-bottom: 20px;">
+              <a href="<%= article_path(article[:id]) %>" class="image left" style="width: 25%; max-width: 150px;">
+                <%= image_tag "pic0#{((index + 2) % 4) + 1}.jpg", alt: article[:title], style: "width: 100%; height: auto;" %>
+              </a>
+              <div class="inner">
+                <h4><%= article[:title] %></h4>
+                <p style="font-size: 0.9em; margin-bottom: 8px;">Pogłębione analizy i techniki zaawansowane</p>
+                <%= link_to "Czytaj więcej", article_path(article[:id]), class: "button small" %>
+              </div>
+            </div>
+          <% end %>
         </div>
       </div>
-    <% end %>
+    </div>
   </div>
-</div>
+</section>
