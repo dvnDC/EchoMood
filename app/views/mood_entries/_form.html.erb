@@ -20,7 +20,10 @@
     <%= form.text_area :note %>
   </div>
 
-  <div>
-    <%= form.submit %>
+
+
+  <div class="form-actions">
+    <%= form.submit "Zapisz", class: "button primary" %>
+    <%= link_to "Anuluj", emotion_entries_path, class: "button secondary" %>
   </div>
 <% end %>
