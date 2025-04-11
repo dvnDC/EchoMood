@@ -1,0 +1,78 @@
+/* Bardziej zgrabna tabela */
+.compact-table td, .compact-table th {
+    padding: 8px 12px;
+    vertical-align: middle;
+}
+
+.compact-table tr {
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+
+/* Klasy wyrównania tekstu */
+.text-left {
+    text-align: left;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.text-right {
+    text-align: right;
+}
+
+/* Przyciski ułożone jeden nad drugim */
+.stacked-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.small-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px 8px;
+    border-radius: 4px;
+    color: white;
+    font-size: 0.85em;
+    text-decoration: none;
+    transition: background-color 0.2s;
+    white-space: nowrap;
+}
+
+.small-button i {
+    margin-right: 4px;
+}
+
+.edit-btn {
+    background-color: #4a89dc;
+}
+
+.edit-btn:hover {
+    background-color: #5d9cec;
+}
+
+.delete-btn {
+    background-color: #da4453;
+}
+
+.delete-btn:hover {
+    background-color: #ed5565;
+}
+
+.mood-level {
+    color: white;
+    text-align: center;
+}
+
+.mood-level-1 { background-color: #d32f2f; }
+.mood-level-2 { background-color: #f57c00; }
+.mood-level-3 { background-color: #fbc02d; }
+.mood-level-4 { background-color: #7cb342; }
+.mood-level-5 { background-color: #388e3c; }
+
+.notes-preview {
+    font-size: 0.9em;
+    color: #666;
+}

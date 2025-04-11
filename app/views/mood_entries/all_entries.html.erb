@@ -1,0 +1,72 @@
+<section class="wrapper style1">
+  <div class="container">
+    <div id="content">
+
+      <h1>All Your Mood Entries</h1>
+
+      <div class="actions-bar" style="margin-bottom: 20px;">
+        <%= link_to 'New Mood Entry', new_mood_entry_path, class: "button primary" %>
+        <%= link_to 'Back to Dashboard', mood_entries_path, class: "button" %>
+      </div>
+
+      <div class="mood-entries-list">
+        <% if @mood_entries.any? %>
+          <div class="table-wrapper">
+            <table class="alt compact-table">
+              <thead>
+              <tr>
+                <th class="text-left">Date</th>
+                <th class="text-left">Time</th>
+                <th class="text-left">Mood</th>
+                <th class="text-left">Notes</th>
+                <th class="text-center" style="width: 100px;">Actions</th>
+              </tr>
+              </thead>
+              <tbody>
+              <% @mood_entries.each do |entry| %>
+                <tr>
+                  <td class="text-left"><strong><%= entry.entry_date&.strftime("%b %d, %Y") || "No date" %></strong></td>
+                  <td class="text-left"><%= entry.created_at.strftime("%I:%M %p") if entry.created_at.present? %></td>
+                  <td class="text-left">
+                      <span class="mood-level mood-level-<%= entry.mood_level %>"
+                            style="display: inline-block; padding: 3px 8px; border-radius: 4px; font-weight: bold;">
+                        <%= entry.mood_level %>
+                      </span>
+                  </td>
+                  <td class="text-left">
+                    <% if entry.respond_to?(:notes) && entry.notes.present? %>
+                      <div class="notes-preview"><%= truncate(entry.notes, length: 50) %></div>
+                    <% else %>
+                      <em>No notes</em>
+                    <% end %>
+                  </td>
+                  <td class="text-center">
+                    <div class="stacked-buttons">
+                      <%= link_to edit_mood_entry_path(entry), class: "small-button edit-btn" do %>
+                        <i class="fa fa-edit"></i> Edit
+                      <% end %>
+                      <%= link_to mood_entry_path(entry),
+                                  method: :delete,
+                                  data: { confirm: 'Are you sure you want to delete this entry?' },
+                                  class: "small-button delete-btn" do %>
+                        <i class="fa fa-trash"></i> Delete
+                      <% end %>
+                    </div>
+                  </td>
+                </tr>
+              <% end %>
+              </tbody>
+            </table>
+          </div>
+        <% else %>
+          <div class="empty-state" style="text-align: center; padding: 30px 20px; background: #f9f9f9; border-radius: 8px;">
+            <i class="fa fa-book" style="font-size: 48px; color: #ccc; margin-bottom: 20px;"></i>
+            <p>You have no mood entries yet. Start tracking your mood by adding a new entry!</p>
+            <%= link_to 'Add Your First Entry', new_mood_entry_path, class: "button primary large" %>
+          </div>
+        <% end %>
+      </div>
+
+    </div>
+  </div>
+</section>

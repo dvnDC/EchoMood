@@ -17,18 +17,11 @@ class MoodEntriesController < ApplicationController
     # If no entries, provide empty arrays to avoid errors
     @dates ||= []
     @mood_scores ||= []
+  end
 
-    # Hard-coded data for quadrant chart
-    @points = [
-      { x: -8, y: 6, label: "Point A" },
-      { x: 5, y: 7, label: "Point B" },
-      { x: -3, y: -4, label: "Point C" },
-      { x: 7, y: -8, label: "Point D" },
-      { x: 2, y: -2, label: "Point E" },
-      { x: -6, y: -7, label: "Point F" },
-      { x: -5, y: 2, label: "Point G" },
-      { x: 4, y: 3, label: "Point H" }
-    ]
+  def all
+    @mood_entries = current_user.mood_entries.order(entry_date: :desc, created_at: :desc)
+    render :all_entries
   end
 
   def show
