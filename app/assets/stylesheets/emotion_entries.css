@@ -21,8 +21,8 @@
     border-radius: 5px;
     margin: 30px auto;
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
+    grid-template-columns: 50% 50%;
+    grid-template-rows: 50% 50%;
     overflow: hidden;
     box-shadow: 0 2px 6px rgba(0,0,0,0.08);
 }
@@ -40,8 +40,8 @@
 
 .q1 {
     background-color: rgba(255, 193, 7, 0.2);
+    border-right: 1px solid #ddd;
     border-bottom: 1px solid #ddd;
-    border-left: 1px solid #ddd;
 }
 .q2 {
     background-color: rgba(220, 53, 69, 0.2);
@@ -52,8 +52,9 @@
 }
 .q4 {
     background-color: rgba(40, 167, 69, 0.2);
-    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
 }
+
 
 .marker {
     position: absolute;
