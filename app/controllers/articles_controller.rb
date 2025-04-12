@@ -13,7 +13,8 @@ class ArticlesController < ApplicationController
       { id: 'methods', title: 'Emotion Tracking Methods' },
       { id: 'benefits', title: 'Benefits of Emotion Tracking' },
 
-      { id: 'techniques', title: 'Emotion Tracking Techniques', category: 'advanced' },
+      { id: 'movement', title: 'Movement is medicine', category: 'advanced' },
+      { id: 'meditation', title: 'Meditation', category: 'advanced' },
       { id: 'patterns', title: 'Analyzing Emotion Patterns', category: 'advanced' },
       { id: 'emotional-intelligence', title: 'Emotional Intelligence', category: 'advanced' },
       { id: 'case-studies', title: 'Case Studies', category: 'advanced' },
@@ -34,7 +35,8 @@ class ArticlesController < ApplicationController
       { id: 'methods', title: 'Emotion Tracking Methods' },
       { id: 'benefits', title: 'Benefits of Emotion Tracking' },
 
-      { id: 'techniques', title: 'Emotion Tracking Techniques', category: 'advanced' },
+      { id: 'movement', title: 'Movement is medicine', category: 'advanced' },
+      { id: 'meditation', title: 'Meditation', category: 'advanced' },
       { id: 'patterns', title: 'Analyzing Emotion Patterns', category: 'advanced' },
       { id: 'emotional-intelligence', title: 'Emotional Intelligence', category: 'advanced' },
       { id: 'case-studies', title: 'Case Studies', category: 'advanced' },
