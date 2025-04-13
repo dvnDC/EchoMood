@@ -35,10 +35,9 @@ class MoodEntriesController < ApplicationController
   def create
     @mood_entry = current_user.mood_entries.new(mood_entry_params)
     if @mood_entry.save
-      redirect_to @mood_entry, notice: "Mood entry created successfully!"
+      redirect_to mood_entries_path, notice: "Mood entry created successfully!"
     else
       render :new, status: :unprocessable_entity
-
     end
   end
 

@@ -76,3 +76,33 @@
     font-size: 0.9em;
     color: #666;
 }
+
+.action-button.edit:hover {
+    background: #e2e8f0 !important;
+    color: #2d3748 !important;
+}
+
+.action-button.delete:hover {
+    background: #fed7d7 !important;
+    color: #c53030 !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .mood-entries-card-container {
+        overflow-x: auto;
+    }
+
+    .actions-bar {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .search-filter {
+        width: 100%;
+    }
+
+    .search-filter input {
+        width: 100% !important;
+    }
+}

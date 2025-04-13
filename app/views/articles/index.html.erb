@@ -2,45 +2,68 @@
 <section class="wrapper style1">
   <div class="container">
     <div id="content">
-      <header>
+      <div class="articles-header">
         <h2>Artykuły i poradniki</h2>
-        <p>Dowiedz się więcej o śledzeniu nastrojów i emocji</p>
-      </header>
+        <p>Pogłęb swoją wiedzę o śledzeniu nastrojów i emocji poprzez nasze eksperckie materiały</p>
+      </div>
 
       <div class="row gtr-200">
-
         <!-- Left column -->
         <div class="col-6 col-12-narrower">
-          <h3>Podstawowe zagadnienia</h3>
-          <% @standard_articles.each_with_index do |article, index| %>
-            <div class="box post" style="margin-bottom: 20px;">
-              <a href="<%= article_path(article[:id]) %>" class="image left" style="width: 25%; max-width: 150px;">
-                <%= image_tag "pic0#{(index % 4) + 1}.jpg", alt: article[:title], style: "width: 100%; height: auto;" %>
-              </a>
-              <div class="inner">
-                <h4><%= article[:title] %></h4>
-                <p style="font-size: 0.9em; margin-bottom: 8px;">Podstawowe informacje na temat śledzenia nastroju</p>
-                <%= link_to "Czytaj więcej", article_path(article[:id]), class: "button small" %>
+          <div class="articles-category">
+            <h3>Podstawowe zagadnienia</h3>
+
+            <% @standard_articles.each_with_index do |article, index| %>
+              <div class="article-card">
+                <div class="article-image">
+                  <%= link_to article_path(article[:id]) do %>
+                    <%= image_tag "pic0#{(index % 4) + 1}.jpg", alt: article[:title] %>
+                  <% end %>
+                </div>
+                <div class="article-content">
+                  <div>
+                    <div class="article-meta">
+                      <span class="article-tag">Podstawy</span>
+                    </div>
+                    <h4><%= article[:title] %></h4>
+                    <p>Podstawowe informacje na temat śledzenia nastroju i pracy z emocjami</p>
+                  </div>
+                  <div>
+                    <%= link_to "Czytaj więcej", article_path(article[:id]), class: "article-button" %>
+                  </div>
+                </div>
               </div>
-            </div>
-          <% end %>
+            <% end %>
+          </div>
         </div>
 
         <!-- Right column -->
         <div class="col-6 col-12-narrower">
-          <h3>Zaawansowane tematy</h3>
-          <% @advanced_articles.each_with_index do |article, index| %>
-            <div class="box post" style="margin-bottom: 20px;">
-              <a href="<%= article_path(article[:id]) %>" class="image left" style="width: 25%; max-width: 150px;">
-                <%= image_tag "pic0#{((index + 2) % 4) + 1}.jpg", alt: article[:title], style: "width: 100%; height: auto;" %>
-              </a>
-              <div class="inner">
-                <h4><%= article[:title] %></h4>
-                <p style="font-size: 0.9em; margin-bottom: 8px;">Pogłębione analizy i techniki zaawansowane</p>
-                <%= link_to "Czytaj więcej", article_path(article[:id]), class: "button small" %>
+          <div class="articles-category">
+            <h3>Zaawansowane tematy</h3>
+
+            <% @advanced_articles.each_with_index do |article, index| %>
+              <div class="article-card">
+                <div class="article-image">
+                  <%= link_to article_path(article[:id]) do %>
+                    <%= image_tag "pic0#{((index + 2) % 4) + 1}.jpg", alt: article[:title] %>
+                  <% end %>
+                </div>
+                <div class="article-content">
+                  <div>
+                    <div class="article-meta">
+                      <span class="article-tag">Zaawansowane</span>
+                    </div>
+                    <h4><%= article[:title] %></h4>
+                    <p>Pogłębione analizy i techniki dla osób pragnących rozwinąć swoje umiejętności</p>
+                  </div>
+                  <div>
+                    <%= link_to "Czytaj więcej", article_path(article[:id]), class: "article-button" %>
+                  </div>
+                </div>
               </div>
-            </div>
-          <% end %>
+            <% end %>
+          </div>
         </div>
       </div>
     </div>

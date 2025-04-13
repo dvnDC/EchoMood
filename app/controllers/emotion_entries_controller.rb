@@ -17,6 +17,11 @@ class EmotionEntriesController < ApplicationController
     end
   end
 
+  def all
+    @emotion_entries = current_user.emotion_entries.order(date: :desc, entry_time: :desc)
+    render :all_entries
+  end
+
   def show
   end
 

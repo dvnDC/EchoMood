@@ -1,0 +1,65 @@
+<!-- app/views/emotion_entries/all_entries.html.erb -->
+<section class="wrapper style1">
+  <div class="container">
+    <div id="content">
+      <div class="entries-header">
+        <h2>Twoje wpisy o emocjach</h2>
+        <p>Historia Twoich emocji i przeżyć - odkryj wzorce i śledź swoją drogę do lepszego samopoczucia</p>
+      </div>
+
+      <div class="actions-bar" style="margin-bottom: 20px;">
+        <%= link_to 'Nowy wpis', new_emotion_entry_path, class: "button primary" %>
+        <%= link_to 'Powrót', emotion_entries_path, class: "button" %>
+      </div>
+
+      <% if @emotion_entries.any? %>
+        <div class="emotion-entries-grid">
+          <% @emotion_entries.each do |entry| %>
+            <div class="emotion-card">
+              <div class="emotion-card-header">
+                <div class="emotion-date">
+                  <strong><%= entry.date&.strftime("%d %b %Y") || "Brak daty" %></strong>
+                  <span class="emotion-time"><%= entry.entry_time&.strftime("%H:%M") if entry.entry_time.present? %></span>
+                </div>
+                <div class="emotion-quadrant quadrant-<%= entry.quadrant %>">
+                  <%= entry.predicted_emotion %>
+                </div>
+              </div>
+              <div class="emotion-card-content">
+                <div class="emotion-coordinates">
+                  <div class="valence">Walencja: <strong><%= entry.valence %></strong></div>
+                  <div class="arousal">Pobudzenie: <strong><%= entry.arousal %></strong></div>
+                </div>
+                <% if entry.respond_to?(:notes) && entry.notes.present? %>
+                  <p class="emotion-note"><%= truncate(entry.notes, length: 120) %></p>
+                <% else %>
+                  <p class="emotion-note empty-note">Brak notatki</p>
+                <% end %>
+              </div>
+              <div class="emotion-card-footer">
+                <div class="emotion-actions">
+                  <%= link_to edit_emotion_entry_path(entry), class: "edit-button" do %>
+                    <i class="fa fa-edit"></i>
+                  <% end %>
+                  <%= link_to emotion_entry_path(entry),
+                              method: :delete,
+                              data: { confirm: 'Czy na pewno chcesz usunąć ten wpis?' },
+                              class: "delete-button" do %>
+                    <i class="fa fa-trash"></i>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      <% else %>
+        <div class="empty-state">
+          <i class="fa fa-heart-o"></i>
+          <h3>Brak wpisów o emocjach</h3>
+          <p>Zacznij śledzić swoje emocje, dodając pierwszy wpis!</p>
+          <%= link_to 'Dodaj pierwszy wpis', new_emotion_entry_path, class: "button primary large" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</section>

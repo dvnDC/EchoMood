@@ -12,42 +12,43 @@
   </div>
 
   <!-- Nav -->
-<nav id="nav">
-  <ul>
-    <li class="<%= current_page?(home_index_path) ? 'current' : '' %>"><%= link_to 'Home', home_index_path %></li>
-    <li class="<%= params[:controller] == 'articles' ? 'current' : '' %> opener">
-      <a href="<%= articles_path %>">Articles</a>
-      <ul>
-        <li><%= link_to 'All Articles', articles_path %></li>
-        <li><%= link_to 'Introduction', article_path('introduction') %></li>
-        <li><%= link_to 'Methods', article_path('methods') %></li>
-        <li><%= link_to 'Benefits', article_path('benefits') %></li>
-        <li class="opener">
-          <a href="#">Advanced Topics</a>
-          <ul>
-            <li><%= link_to 'Movement is medicine', article_path('movement') %></li>
-            <li><%= link_to 'Meditation', article_path('meditation') %></li>
-            <li><%= link_to 'Analyzing Patterns', article_path('patterns') %></li>
-            <li><%= link_to 'Emotional Intelligence', article_path('emotional-intelligence') %></li>
-            <li><%= link_to 'Case Studies', article_path('case-studies') %></li>
-            <li><%= link_to 'Scientific Research', article_path('research') %></li>
-          </ul>
-        </li>
-        <li><%= link_to 'Resources', article_path('resources') %></li>
-      </ul>
-    </li>
-    <li class="<%= current_page?(mood_entries_path) ? 'current' : '' %>"><%= link_to 'Mood Tracking', mood_entries_path %></li>
-    <li class="<%= current_page?(emotion_entries_path) ? 'current' : '' %>"><%= link_to 'Emotion Map', emotion_entries_path %></li>
-    <li class="spacer"></li>
-    <li class="spacer"></li>
-    <% if user_signed_in? %>
-      <li><%= link_to "#{current_user.email}", "#" %></li>
-      <li><%= link_to 'Logout', destroy_user_session_path, data: { turbo_method: :delete } %></li>
-    <% else %>
-      <li class="<%= current_page?(new_user_session_path) ? 'current' : '' %>"><%= link_to 'Login', new_user_session_path %></li>
-      <li class="<%= current_page?(new_user_registration_path) ? 'current' : '' %>"><%= link_to 'Sing-up', new_user_registration_path %></li>
-    <% end %>
-  </ul>
-</nav>
+  <nav id="nav">
+    <ul>
+      <li class="<%= current_page?(home_index_path) ? 'current' : '' %>"><%= link_to 'Home', home_index_path %></li>
+      <li class="<%= params[:controller] == 'articles' ? 'current' : '' %> opener">
+        <a href="<%= articles_path %>">Articles</a>
+        <ul>
+          <li><%= link_to 'All Articles', articles_path %></li>
+          <li><%= link_to 'Introduction', article_path('introduction') %></li>
+          <li><%= link_to 'Methods', article_path('methods') %></li>
+          <li><%= link_to 'Benefits', article_path('benefits') %></li>
+          <li class="opener">
+            <a href="#">Advanced</a>
+            <ul>
+              <li><%= link_to 'Movement is medicine', article_path('movement') %></li>
+              <li><%= link_to 'Meditation', article_path('meditation') %></li>
+              <li><%= link_to 'Analyzing Patterns', article_path('patterns') %></li>
+              <li><%= link_to 'Emotional Intelligence', article_path('emotional-intelligence') %></li>
+              <li><%= link_to 'Case Studies', article_path('case-studies') %></li>
+              <li><%= link_to 'Scientific Research', article_path('research') %></li>
+            </ul>
+          </li>
+          <li><%= link_to 'Resources', article_path('resources') %></li>
+        </ul>
+      </li>
+      <li class="<%= current_page?(mood_entries_path) ? 'current' : '' %>"><%= link_to 'Mood Tracking', mood_entries_path %></li>
+      <li class="<%= current_page?(emotion_entries_path) ? 'current' : '' %>"><%= link_to 'Emotion Map', emotion_entries_path %></li>
+      <li class="<%= current_page?(meditation_path) ? 'current' : '' %>"><%= link_to 'Meditation', meditation_path %></li>
+      <li class="spacer"></li>
+      <li class="spacer"></li>
+      <% if user_signed_in? %>
+        <li><%= link_to "#{current_user.email}", "#" %></li>
+        <li><%= link_to 'Logout', destroy_user_session_path, data: { turbo_method: :delete } %></li>
+      <% else %>
+        <li class="<%= current_page?(new_user_session_path) ? 'current' : '' %>"><%= link_to 'Sign in', new_user_session_path %></li>
+        <li class="<%= current_page?(new_user_registration_path) ? 'current' : '' %>"><%= link_to 'Sign up', new_user_registration_path %></li>
+      <% end %>
+    </ul>
+  </nav>
 
 </div>
