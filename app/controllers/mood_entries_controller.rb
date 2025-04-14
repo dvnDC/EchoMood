@@ -34,10 +34,21 @@ class MoodEntriesController < ApplicationController
 
   def create
     @mood_entry = current_user.mood_entries.new(mood_entry_params)
-    if @mood_entry.save
-      redirect_to mood_entries_path, notice: "Mood entry created successfully!"
-    else
-      render :new, status: :unprocessable_entity
+
+    respond_to do |format|
+      if @mood_entry.save
+        # Wygeneruj sugestię AI po zapisaniu nastroju
+        @ai_suggestion = AiSuggestionService.generate_suggestion(current_user)
+
+        # Zapisz sugestię w sesji, aby wyświetlić ją w widoku
+        session[:ai_suggestion] = @ai_suggestion
+
+        format.html { redirect_to mood_entries_path, notice: 'Mood entry was successfully created.' }
+        format.json { render :show, status: :created, location: @mood_entry }
+      else
+        format.html { render :new, status: :unprocessable_entity }
+        format.json { render json: @mood_entry.errors, status: :unprocessable_entity }
+      end
     end
   end
 

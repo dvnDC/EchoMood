@@ -23,7 +23,7 @@ class AiSuggestionService
     # Dodaj informacje o aktualnym nastroju
     if current_mood
       prompt += "- Aktualny poziom nastroju: #{current_mood.mood_level}/5\n"
-      prompt += "- Komentarz: #{current_mood.notes}\n" if current_mood.notes.present?
+      prompt += "- Komentarz: #{current_mood.note}\n" if current_mood.note.present?
     end
 
     # Dodaj informacje o historii nastrojów
@@ -49,7 +49,7 @@ class AiSuggestionService
     uri = URI("#{ENV['AI_SERVICE_URL'] || 'http://ai:11434'}/api/generate")
     req = Net::HTTP::Post.new(uri)
     req.body = {
-      model: 'llama3:8b-q4',
+      model: 'llama3:8b',
       prompt: prompt,
       stream: false,
       max_tokens: 100

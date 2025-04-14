@@ -1,0 +1,39 @@
+.ai-suggestion-box {
+    background: linear-gradient(to right, #f6f8ff, #eef1fa);
+    border-radius: 10px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+    padding: 20px;
+    margin-bottom: 25px;
+    position: relative;
+    border-left: 4px solid #5385de;
+    animation: fadeIn 0.5s ease-out;
+}
+
+.suggestion-content {
+    display: flex;
+    align-items: flex-start;
+}
+
+.suggestion-content i {
+    color: #5385de;
+    font-size: 1.5em;
+    margin-right: 15px;
+    margin-top: 3px;
+}
+
+.suggestion-content p {
+    margin: 0;
+    font-size: 1.05em;
+    line-height: 1.4;
+    color: #444;
+}
+
+.ai-suggestion-box .button {
+    margin-top: 15px;
+    margin-left: 38px;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
