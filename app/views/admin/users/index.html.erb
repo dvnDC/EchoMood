@@ -1,29 +1,152 @@
 <%# app/views/admin/users/index.html.erb %>
-<section class="wrapper style1">
-  <div class="container">
-    <div class="row gtr-200">
-      <h1>Zarządzanie użytkownikami</h1>
+<section class="wrapper style1" data-controller="users-index">
+  <section class="wrapper style1">
+    <div class="container">
+      <div class="admin-dashboard">
+        <div class="admin-header">
+          <h1>Panel zarządzania użytkownikami</h1>
+          <p>Administruj rolami i uprawnieniami użytkowników w systemie</p>
+        </div>
 
-      <table>
-        <thead>
-        <tr>
-          <th>Email</th>
-          <th>Role</th>
-          <th>Akcje</th>
-        </tr>
-        </thead>
-        <tbody>
-        <% @users.each do |user| %>
-          <tr>
-            <td><%= user.email %></td>
-            <td><%= user.roles.pluck(:name).join(", ") %></td>
-            <td>
-              <%= link_to "Edytuj role", edit_admin_user_path(user) %>
-            </td>
-          </tr>
-        <% end %>
-        </tbody>
-      </table>
+        <div class="admin-stats">
+          <div class="stat-card">
+            <div class="stat-icon">
+              <i class="fa fa-users"></i>
+            </div>
+            <div class="stat-info">
+              <h3><%= @users.count %></h3>
+              <p>Łącznie użytkowników</p>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon">
+              <i class="fa fa-shield-alt"></i>
+            </div>
+            <div class="stat-info">
+              <h3><%= Role.count %></h3>
+              <p>Zdefiniowane role</p>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon">
+              <i class="fa fa-user-shield"></i>
+            </div>
+            <div class="stat-info">
+              <h3><%= @users.joins(:roles).where(roles: { name: 'admin' }).count %></h3>
+              <p>Administratorzy</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="admin-table-container">
+          <div class="table-header">
+            <div class="table-title">
+              <h2>Lista użytkowników</h2>
+            </div>
+            <div class="table-actions">
+              <div class="search-box">
+                <input type="text"
+                       data-users-index-target="searchInput"
+                       data-action="input->users-index#search"
+                       placeholder="Szukaj użytkownika...">
+                <i class="fa fa-search"></i>
+              </div>
+            </div>
+          </div>
+
+          <div class="user-table-wrapper">
+            <table class="user-table" data-users-index-target="userTable">
+              <thead>
+              <tr>
+                <th data-sort-direction="">
+                  <div class="th-content">
+                    <span>Email</span>
+                    <i class="fa fa-sort"
+                       data-users-index-target="sortButton"
+                       data-action="click->users-index#sort"></i>
+                  </div>
+                </th>
+                <th data-sort-direction="">
+                  <div class="th-content">
+                    <span>Role</span>
+                    <i class="fa fa-sort"
+                       data-users-index-target="sortButton"
+                       data-action="click->users-index#sort"></i>
+                  </div>
+                </th>
+                <th data-sort-direction="">
+                  <div class="th-content">
+                    <span>Data rejestracji</span>
+                    <i class="fa fa-sort"
+                       data-users-index-target="sortButton"
+                       data-action="click->users-index#sort"></i>
+                  </div>
+                </th>
+                <th>Akcje</th>
+              </tr>
+              </thead>
+              <tbody>
+              <% @users.each do |user| %>
+                <tr>
+                  <td>
+                    <div class="user-info">
+                      <div class="user-avatar">
+                        <%= user.email.first.upcase %>
+                      </div>
+                      <div class="user-email">
+                        <%= user.email %>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="roles-container">
+                      <% user.roles.each do |role| %>
+                        <span class="role-badge <%= role.name.parameterize %>"><%= role.name %></span>
+                      <% end %>
+                      <% if user.roles.empty? %>
+                        <span class="role-badge empty">Brak ról</span>
+                      <% end %>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="created-at">
+                      <div class="date"><%= user.created_at.strftime("%d/%m/%Y") %></div>
+                      <div class="time"><%= user.created_at.strftime("%H:%M") %></div>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="action-buttons">
+                      <%= link_to edit_admin_user_path(user), class: "action-btn edit" do %>
+                        <i class="fa fa-edit"></i>
+                        <span>Edytuj role</span>
+                      <% end %>
+
+                      <%= link_to "#", class: "action-btn view" do %>
+                        <i class="fa fa-eye"></i>
+                        <span>Szczegóły</span>
+                      <% end %>
+                    </div>
+                  </td>
+                </tr>
+              <% end %>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="table-footer">
+            <div class="pagination">
+              <span class="pagination-info">Wyświetlanie 1-<%= @users.count %> z <%= @users.count %> użytkowników</span>
+              <div class="pagination-controls">
+                <a href="#" class="disabled"><i class="fa fa-chevron-left"></i></a>
+                <span class="current-page">1</span>
+                <a href="#" class="disabled"><i class="fa fa-chevron-right"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
+  </section>
 </section>
