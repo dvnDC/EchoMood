@@ -17,6 +17,8 @@ class MoodEntriesController < ApplicationController
     # If no entries, provide empty arrays to avoid errors
     @dates ||= []
     @mood_scores ||= []
+
+    @latest_mood_entry = current_user.mood_entries.order(created_at: :desc).first
   end
 
   def all
@@ -38,10 +40,7 @@ class MoodEntriesController < ApplicationController
     respond_to do |format|
       if @mood_entry.save
         # Wygeneruj sugestię AI po zapisaniu nastroju
-        @ai_suggestion = AiSuggestionService.generate_suggestion(current_user)
-
-        # Zapisz sugestię w sesji, aby wyświetlić ją w widoku
-        session[:ai_suggestion] = @ai_suggestion
+        AiSuggestionJob.perform_later(@mood_entry.id)
 
         format.html { redirect_to mood_entries_path, notice: 'Mood entry was successfully created.' }
         format.json { render :show, status: :created, location: @mood_entry }

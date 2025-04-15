@@ -1,11 +1,11 @@
 class MoodEntry < ApplicationRecord
   belongs_to :user
 
-  validates :mood_level, presence: true, inclusion: { in: 1..5 } # Update articles with this data - meditation and patterns!
+  validates :mood_level, presence: true, inclusion: { in: 1..5 }
   validates :entry_date, presence: true
 
   before_validation :set_default_entry_date, on: :create
-  after_create :generate_ai_suggestion
+  after_create_commit :enqueue_ai_suggestion_job
 
   private
 
@@ -13,8 +13,7 @@ class MoodEntry < ApplicationRecord
     self.entry_date ||= Date.today
   end
 
-  def generate_ai_suggestion
-    suggestion = AiSuggestionService.generate_suggestion(user)
-    update_column(:ai_suggestion, suggestion) if suggestion.present?
+  def enqueue_ai_suggestion_job
+    AiSuggestionJob.perform_later(self.id)
   end
 end

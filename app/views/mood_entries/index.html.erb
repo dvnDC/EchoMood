@@ -1,3 +1,5 @@
+<%= turbo_stream_from "ai_suggestion_#{current_user.id}" %>
+
 <!-- Main -->
 <section class="wrapper style1">
   <div class="container">
@@ -57,8 +59,9 @@
               <p>Your mood history.</p>
             </header>
 
-            <%= render 'shared/ai_suggestion' %>
-
+            <%= turbo_frame_tag "ai_suggestion_frame" do %>
+              <%= render 'shared/ai_suggestion', latest_mood_entry: @latest_mood_entry %>
+            <% end %>
 
             <div data-controller="chart">
               <canvas
