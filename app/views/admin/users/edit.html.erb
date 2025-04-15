@@ -1,0 +1,28 @@
+<%# app/views/admin/users/edit.html.erb %>
+
+<section class="wrapper style1">
+  <div class="container">
+    <div class="row gtr-200">
+      <h1>Edytuj role dla <%= @user.email %></h1>
+
+      <%= form_with(model: [:admin, @user], local: true) do |f| %>
+        <div class="roles-container">
+          <h3>Role:</h3>
+          <%= f.collection_check_boxes :role_ids, @roles, :id, :name do |b| %>
+            <div class="role-item">
+              <%= b.check_box(class: "role-checkbox") %>
+              <%= b.label(class: "role-label") %>
+            </div>
+          <% end %>
+
+
+          <div class="form-actions">
+            <%= f.submit "Zapisz zmiany", class: "button" %>
+          </div>
+      <% end %>
+
+      <%= link_to "Powrót do listy użytkowników", admin_users_path, class: "button alt" %>
+      </div>
+    </div>
+  </div>
+</section>

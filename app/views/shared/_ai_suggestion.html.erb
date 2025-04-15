@@ -1,13 +1,19 @@
-<% if suggestion = session.delete(:ai_suggestion) %>
+<% mood_entry = local_assigns[:latest_mood_entry] %>
+
+<% if mood_entry.present? && mood_entry.ai_suggestion.present? %>
   <div class="ai-suggestion-box">
     <div class="suggestion-content">
       <i class="icon fa-lightbulb"></i>
-      <p><%= suggestion %></p>
+      <p><%= mood_entry.ai_suggestion %></p>
     </div>
-    <% if suggestion.include?("oddech") || suggestion.include?("Medytacja") %>
+    <% if mood_entry.ai_suggestion.include?("oddech") || mood_entry.ai_suggestion.include?("Medytacja") %>
       <%= link_to "Przejdź do ćwiczeń oddechowych", meditation_path, class: "button alt small" %>
-    <% elsif suggestion.include?("artykuł") %>
+    <% elsif mood_entry.ai_suggestion.include?("artykuł") %>
       <%= link_to "Przejdź do artykułów", articles_path, class: "button alt small" %>
     <% end %>
+  </div>
+<% else %>
+  <div id="ai-suggestion-loading">
+    <p><em>Generowanie sugestii AI w toku...</em></p>
   </div>
 <% end %>
