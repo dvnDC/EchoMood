@@ -1,72 +1,178 @@
 /* app/assets/stylesheets/admin/roles_form.css */
 
+/* Form container */
 .roles-container {
-    margin: 20px 0;
-    padding: 15px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    background-color: #f9f9f9;
+    margin: 25px 0;
+    padding: 20px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    background-color: #f8f9fa;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
 }
 
+.roles-container h3 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: #2c3e50;
+    font-weight: 600;
+    border-bottom: 2px solid #3498db;
+    padding-bottom: 10px;
+    display: inline-block;
+}
+
+/* Single role element */
 .role-item {
     display: flex;
     align-items: center;
-    margin: 10px 0;
-    padding: 8px;
+    margin: 12px 0;
+    padding: 12px 15px;
     background-color: white;
-    border-radius: 4px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    border-radius: 6px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    transition: all 0.2s ease;
+    border-left: 4px solid transparent;
 }
 
-/* Wyraźny styl dla checkboxa */
+.role-item:hover {
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+    transform: translateY(-2px);
+    border-left-color: #3498db;
+}
+
+/* Styles for checkbox */
 .role-checkbox {
-    width: 22px !important;
-    height: 22px !important;
-    margin-right: 12px !important;
-    border: 2px solid #4a89dc !important;
+    appearance: none !important;
+    -webkit-appearance: none !important;
+    -moz-appearance: none !important;
+    width: 24px !important;
+    height: 24px !important;
+    margin-right: 15px !important;
+    border: 2px solid #3498db !important;
+    border-radius: 4px !important;
     background-color: white !important;
-    appearance: auto !important;
-    -webkit-appearance: auto !important;
-    -moz-appearance: auto !important;
+    cursor: pointer !important;
     position: relative !important;
     display: inline-block !important;
     vertical-align: middle !important;
-    cursor: pointer !important;
-    /* Zapewnia, że checkbox będzie widoczny */
-    opacity: 1 !important;
-    visibility: visible !important;
-    z-index: 5 !important;
+    transition: background-color 0.2s, border-color 0.2s !important;
 }
 
-/* Styl dla checkboxa po zaznaczeniu */
+/* Checkbox hover style */
+.role-checkbox:hover {
+    border-color: #2980b9 !important;
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2) !important;
+}
+
+/* Style for checkbox when checked */
 .role-checkbox:checked {
-    background-color: #4a89dc !important;
-    border-color: #3b7ddd !important;
+    background-color: #3498db !important;
+    border-color: #3498db !important;
 }
 
+/* Check mark symbol (✓) */
+.role-checkbox:checked::after {
+    content: "✓" !important;
+    position: absolute !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    font-size: 16px !important;
+    color: white !important;
+    font-weight: bold !important;
+}
+
+/* Style for roll label*/
 .role-label {
     display: inline-block;
-    font-size: 1rem;
+    font-size: 1.05rem;
     font-weight: 500;
+    color: #34495e;
     margin-left: 5px;
     flex-grow: 1;
     cursor: pointer;
+    transition: color 0.2s;
 }
 
+.role-label:hover {
+    color: #3498db;
+}
+
+/* Role Description (optional) */
+.role-description {
+    font-size: 0.9rem;
+    color: #7f8c8d;
+    margin-top: 4px;
+    font-style: italic;
+}
+
+/* Form Action Buttons */
 .form-actions {
-    margin-top: 20px;
+    margin-top: 25px;
+    display: flex;
+    gap: 15px;
 }
 
 .form-actions .button {
-    padding: 10px 15px;
-    background-color: #4a89dc;
+    padding: 10px 20px;
+    background-color: #3498db;
     color: white;
     border: none;
-    border-radius: 4px;
+    border-radius: 5px;
     cursor: pointer;
     font-weight: 600;
+    transition: all 0.2s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .form-actions .button:hover {
-    background-color: #3b7ddd;
+    background-color: #2980b9;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.form-actions .button.alt {
+    background-color: #95a5a6;
+}
+
+.form-actions .button.alt:hover {
+    background-color: #7f8c8d;
+}
+
+/* Section Header */
+.roles-section-header {
+    margin-bottom: 30px;
+    border-bottom: 1px solid #e0e0e0;
+    padding-bottom: 15px;
+}
+
+.roles-section-header h1 {
+    color: #2c3e50;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.roles-section-header p {
+    color: #7f8c8d;
+    font-size: 1.1rem;
+}
+
+/* Responsiveness */
+@media (max-width: 768px) {
+    .roles-container {
+        padding: 15px;
+    }
+
+    .role-item {
+        padding: 10px;
+    }
+
+    .form-actions {
+        flex-direction: column;
+    }
+
+    .form-actions .button {
+        width: 100%;
+    }
 }
