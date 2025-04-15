@@ -11,7 +11,7 @@ class MoodEntriesController < ApplicationController
                                  .order(entry_date: :asc)
 
     # Prepare data for the chart
-    @dates = recent_entries.map { |entry| entry.entry_date.strftime("%b %d") }
+    @dates = recent_entries.map { |entry| entry.created_at.strftime("%b %d") }
     @mood_scores = recent_entries.map(&:mood_level)
 
     # If no entries, provide empty arrays to avoid errors
