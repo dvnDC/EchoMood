@@ -9,8 +9,30 @@ services:
     depends_on:
       - db
       - ai
+      - redis
+      - sidekiq
     environment:
       AI_SERVICE_URL: "http://ai:11434"
+      REDIS_URL: "redis://redis:6379/0"
+
+  sidekiq:
+    build: .
+    command: bundle exec sidekiq -C config/sidekiq.yml
+    volumes:
+      - ".:/app"
+    depends_on:
+      - db
+      - ai
+      - redis
+    environment:
+      REDIS_URL: "redis://redis:6379/0"
+    restart: unless-stopped
+
+  redis:
+    image: redis:7.2
+    ports:
+      - "6379:6379"
+
   db:
     image: "postgres:17.4"
     volumes:
@@ -21,6 +43,7 @@ services:
       POSTGRES_DB: "echomood_development"
     ports:
       - "5432:5432"
+
   ai:
     image: "ollama/ollama:latest"
     volumes:
@@ -32,6 +55,13 @@ services:
         limits:
           memory: 8G
     command: "serve"
+
+  mailcatcher:
+    image: schickling/mailcatcher
+    ports:
+      - "1080:1080"
+      - "1025:1025"
+
 volumes:
   echomood_postgres_data:
   ollama_data:
