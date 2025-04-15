@@ -45,7 +45,7 @@ gem "bcrypt", "~> 3.1.20"
 gem "orm_adapter", "~> 0.5.0"
 gem "responders", "~> 3.1.1"
 gem "warden", "~> 1.2.9"
-
+gem 'sidekiq'
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
