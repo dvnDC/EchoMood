@@ -1,8 +1,8 @@
 class AiSuggestionService
   def self.generate_suggestion(user)
     # Pobierz dane potrzebne do wygenerowania sugestii
-    current_mood = user.mood_entries.order(entry_date: :desc).first
-    mood_history = user.mood_entries.order(entry_date: :desc).limit(5)
+    current_mood = user.mood_entries.order(created_at: :desc).first
+    mood_history = user.mood_entries.order(created_at: :desc).limit(5)
     emotion_data = user.emotion_entries.order(created_at: :desc).first
 
     # Przygotuj prompt z kontekstem
@@ -39,6 +39,9 @@ class AiSuggestionService
     # Poproś o wygenerowanie krótkiej, pomocnej sugestii
     prompt += "\nUtwórz krótką (max 2 zdania), empatyczną sugestię, która pomoże użytkownikowi poprawić samopoczucie. "
     prompt += "Możesz odwołać się do technik oddechowych, medytacji lub artykułów dostępnych w aplikacji."
+    prompt += "Przedstaw wnioski na podstawie analizy danych nastroju i emocji użytkownika."
+    prompt += "Odnieś się do też notatek użytkownika."
+    prompt += "WAŻNE! Odpisuj w języku polskim."
 
     prompt
   end
@@ -51,6 +54,7 @@ class AiSuggestionService
     req.body = {
       model: 'llama3:8b',
       prompt: prompt,
+      system: "Jesteś pomocnym asystentem wellbeing. Zawsze odpowiadaj w języku polskim.",
       stream: false,
       max_tokens: 100
     }.to_json
