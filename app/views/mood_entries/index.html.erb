@@ -59,9 +59,68 @@
               <p>Your mood history.</p>
             </header>
 
-            <%= turbo_frame_tag "ai_suggestion_frame" do %>
-              <%= render 'shared/ai_suggestion', latest_mood_entry: @latest_mood_entry %>
-            <% end %>
+            <%#= turbo_frame_tag "ai_suggestion_frame" do %>
+              <%#= render 'shared/ai_suggestion', latest_mood_entry: @latest_mood_entry %>
+            <%# end %>
+
+            <h3>Your Mood Calendar</h3>
+            <p>Each tile represents a day, colored by your mood level. Hover over a tile to see details.</p>
+
+            <div class="mood-grid" data-controller="mood-grid">
+
+
+                <% @mood_grid_data.each do |date, entry| %>
+                  <% if entry.nil? %>
+                    <div class="mood-cell empty" data-date="<%= date.strftime('%Y-%m-%d') %>">
+                      <div class="mood-date"><%= date.strftime('%-d') %></div>
+                      <div class="mood-weekday"><%= date.strftime('%a') %></div>
+                      <span class="mood-tooltip"><%= date.strftime('%b %d, %Y') %> - No entry</span>
+                    </div>
+                  <% else %>
+                  <div class="mood-cell level-<%= entry.mood_level %>" data-date="<%= date.strftime('%Y-%m-%d') %>" data-entry-id="<%= entry.id %>">
+                      <div class="mood-date"><%= date.strftime('%-d') %></div>
+                      <div class="mood-weekday"><%= date.strftime('%a') %></div>
+                      <div class="mood-level"><%= entry.mood_level %></div>
+                      <span class="mood-tooltip">
+                        <%= date.strftime('%b %d, %Y') %> - Mood: <%= entry.mood_level %>/5
+                        <% if entry.note.present? %>
+                          <br><small><%= truncate(entry.note, length: 30) %></small>
+                        <% end %>
+                      </span>
+                    </div>
+                  <% end %>
+                <% end %>
+              </div>
+
+            <div class="mood-legend">
+              <h4>Mood Legend:</h4>
+              <div style="display: flex; gap: 10px; align-items: center;">
+                <div style="display: flex; align-items: center;">
+                  <div class="mood-cell level-1" style="width: 20px; height: 20px;"></div>
+                  <span style="margin-left: 5px;">Very Low (1)</span>
+                </div>
+                <div style="display: flex; align-items: center;">
+                  <div class="mood-cell level-2" style="width: 20px; height: 20px;"></div>
+                  <span style="margin-left: 5px;">Low (2)</span>
+                </div>
+                <div style="display: flex; align-items: center;">
+                  <div class="mood-cell level-3" style="width: 20px; height: 20px;"></div>
+                  <span style="margin-left: 5px;">Neutral (3)</span>
+                </div>
+                <div style="display: flex; align-items: center;">
+                  <div class="mood-cell level-4" style="width: 20px; height: 20px;"></div>
+                  <span style="margin-left: 5px;">Good (4)</span>
+                </div>
+                <div style="display: flex; align-items: center;">
+                  <div class="mood-cell level-5" style="width: 20px; height: 20px;"></div>
+                  <span style="margin-left: 5px;">Very Good (5)</span>
+                </div>
+              </div>
+            </div>
+
+
+
+              <h3>Mood Trend (Last 14 Days)</h3>
 
             <div data-controller="chart">
               <canvas

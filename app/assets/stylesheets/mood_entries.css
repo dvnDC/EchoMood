@@ -106,3 +106,101 @@
         width: 100% !important;
     }
 }
+
+.mood-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 1px;
+    border: 1px solid #ddd;
+    margin: 20px 0;
+    background-color: #ddd; /* Kolor przerw */
+}
+
+.mood-cell {
+    aspect-ratio: 1 / 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+    background-color: white;
+    position: relative;
+    cursor: pointer;
+    font-size: 12px;
+    text-align: center;
+}
+
+.mood-date {
+    font-weight: bold;
+    margin-bottom: 3px;
+}
+
+.mood-weekday {
+    font-size: 10px;
+    color: #666;
+}
+
+.mood-cell.empty {
+    background-color: #f5f5f5;
+    color: #999;
+}
+
+.mood-cell.level-1 {
+    background-color: #ffadad; /* Czerwony - bardzo zły nastrój */
+}
+
+.mood-cell.level-2 {
+    background-color: #ffd6a5; /* Pomarańczowy - zły nastrój */
+}
+
+.mood-cell.level-3 {
+    background-color: #fdffb6; /* Żółty - neutralny nastrój */
+}
+
+.mood-cell.level-4 {
+    background-color: #caffbf; /* Jasnozielony - dobry nastrój */
+}
+
+.mood-cell.level-5 {
+    background-color: #9bf6ff; /* Niebieski - bardzo dobry nastrój */
+}
+
+.mood-tooltip {
+    visibility: hidden;
+    width: 150px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -75px;
+    opacity: 0;
+    transition: opacity 0.3s;
+    font-size: 12px;
+}
+
+.mood-cell:hover .mood-tooltip {
+    visibility: visible;
+    opacity: 1;
+}
+
+.mood-legend {
+    margin-top: 15px;
+}
+
+.mood-legend-item {
+    display: inline-flex;
+    align-items: center;
+    margin-right: 12px;
+    margin-bottom: 8px;
+}
+
+.mood-legend-color {
+    width: 20px;
+    height: 20px;
+    margin-right: 5px;
+}

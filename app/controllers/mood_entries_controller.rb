@@ -5,12 +5,31 @@ class MoodEntriesController < ApplicationController
     @mood_entries = current_user.mood_entries.order(created_at: :asc)
     @recent_mood_entries = current_user.mood_entries.order(created_at: :desc).limit(5)
 
-    # Get the last 14 days of mood entries for the chart
+    # Zmiana - pokazujemy tylko ostatnie 28 dni
+    end_date = Date.today
+    start_date = end_date - 27.days  # 28 dni łącznie z dzisiejszym
+
+    @mood_grid_data = {}
+
+    # Wypełnij siatkę pustymi wartościami dla wszystkich 28 dni
+    (start_date..end_date).each do |date|
+      @mood_grid_data[date] = nil
+    end
+
+    # Uzupełnij dane z istniejących wpisów
+    mood_entries_in_range = current_user.mood_entries
+                                        .where(entry_date: start_date..end_date)
+                                        .order(entry_date: :asc)
+
+    mood_entries_in_range.each do |entry|
+      @mood_grid_data[entry.entry_date] = entry
+    end
+
+    # Zachowujemy istniejącą funkcjonalność dla wykresu
     recent_entries = current_user.mood_entries
                                  .where(entry_date: 14.days.ago.to_date..Date.today)
                                  .order(entry_date: :asc)
 
-    # Prepare data for the chart
     @dates = recent_entries.map { |entry| entry.created_at.strftime("%b %d") }
     @mood_scores = recent_entries.map(&:mood_level)
 
