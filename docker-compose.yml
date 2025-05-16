@@ -8,11 +8,11 @@ services:
       - "3000:3000"
     depends_on:
       - db
-      - ai
+#      - ai
       - redis
       - sidekiq
     environment:
-      AI_SERVICE_URL: "http://ai:11434"
+#      AI_SERVICE_URL: "http://ai:11434"
       REDIS_URL: "redis://redis:6379/0"
 
   sidekiq:
@@ -22,7 +22,7 @@ services:
       - ".:/app"
     depends_on:
       - db
-      - ai
+#      - ai
       - redis
     environment:
       REDIS_URL: "redis://redis:6379/0"
@@ -44,17 +44,17 @@ services:
     ports:
       - "5432:5432"
 
-  ai:
-    image: "ollama/ollama:latest"
-    volumes:
-      - "ollama_data:/root/.ollama"
-    ports:
-      - "11434:11434"
-    deploy:
-      resources:
-        limits:
-          memory: 8G
-    command: "serve"
+#  ai:
+#    image: "ollama/ollama:latest"
+#    volumes:
+#      - "ollama_data:/root/.ollama"
+#    ports:
+#      - "11434:11434"
+#    deploy:
+#      resources:
+#        limits:
+#          memory: 8G
+#    command: "serve"
 
   mailcatcher:
     image: schickling/mailcatcher
