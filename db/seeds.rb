@@ -5,7 +5,7 @@ roles.each do |role_name|
 end
 
 # Dodaj admina
-admin = User.find_or_create_by(email: 'admin@example.com') do |user|
+admin = User.find_or_create_by(nickname: 'admin') do |user|
   user.password = 'password123'
   user.password_confirmation = 'password123'
 end

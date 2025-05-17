@@ -14,12 +14,12 @@ export default class extends Controller {
         const rows = this.userTableTarget.querySelectorAll("tbody tr")
 
         rows.forEach(row => {
-            const email = row.querySelector(".user-email").textContent.toLowerCase()
+            const nickname = row.querySelector(".user-nickname").textContent.toLowerCase()
             const roles = Array.from(row.querySelectorAll(".role-badge")).map(badge =>
                 badge.textContent.toLowerCase()
             ).join(" ")
 
-            const matchesSearch = email.includes(searchTerm) || roles.includes(searchTerm)
+            const matchesSearch = nickname.includes(searchTerm) || roles.includes(searchTerm)
             row.style.display = matchesSearch ? "" : "none"
         })
     }
@@ -54,9 +54,9 @@ export default class extends Controller {
             let valueA, valueB
 
             // Wybierz odpowiednią wartość do porównania w zależności od kolumny
-            if (columnIndex === 0) { // Email
-                valueA = rowA.querySelector(".user-email").textContent.toLowerCase()
-                valueB = rowB.querySelector(".user-email").textContent.toLowerCase()
+            if (columnIndex === 0) { // nickname
+                valueA = rowA.querySelector(".user-nickname").textContent.toLowerCase()
+                valueB = rowB.querySelector(".user-nickname").textContent.toLowerCase()
             } else if (columnIndex === 1) { // Role
                 valueA = rowA.querySelectorAll(".role-badge").length
                 valueB = rowB.querySelectorAll(".role-badge").length

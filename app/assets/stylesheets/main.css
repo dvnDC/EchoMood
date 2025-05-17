@@ -1992,7 +1992,7 @@ input, select, textarea {
 
 	input[type="text"],
 	input[type="password"],
-	input[type="email"],
+	input[type="nickname"],
 	textarea {
 		-moz-appearance: none;
 		-webkit-appearance: none;
@@ -2015,7 +2015,7 @@ input, select, textarea {
 
 		input[type="text"]:focus,
 		input[type="password"]:focus,
-		input[type="email"]:focus,
+		input[type="nickname"]:focus,
 		textarea:focus {
 			border-color: #37c0fb;
 		}

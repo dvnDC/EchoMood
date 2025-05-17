@@ -30,7 +30,7 @@ module Admin
     end
 
     def user_params
-      params.require(:user).permit(:email, :password, :password_confirmation, role_ids: [])
+      params.require(:user).permit(:nickname, :password, :password_confirmation, role_ids: [])
     end
 
     def require_admin

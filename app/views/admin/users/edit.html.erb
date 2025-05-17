@@ -4,7 +4,7 @@
     <div class="row gtr-200">
       <div class="roles-section-header">
         <h1>Edytuj role dla użytkownika</h1>
-        <p>Użytkownik: <strong><%= @user.email %></strong></p>
+        <p>Użytkownik: <strong><%= @user.nickname %></strong></p>
       </div>
 
       <%= form_with(model: [:admin, @user], local: true) do |f| %>

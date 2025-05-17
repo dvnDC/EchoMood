@@ -8,7 +8,19 @@ class User < ApplicationRecord
   has_many :emotion_entries, dependent: :destroy
   has_and_belongs_to_many :roles, join_table: 'roles_users'
 
-  validates :email, presence: true
+  validates :nickname, presence: true, uniqueness: { case_sensitive: false }
+  
+  def email_required?
+    false
+  end
+  
+  def email_changed?
+    false
+  end
+
+  def will_save_change_to_email?
+    false
+  end
 
   def has_role?(role_name)
     roles.exists?(name: role_name)
