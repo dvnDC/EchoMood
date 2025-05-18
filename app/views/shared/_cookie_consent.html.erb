@@ -1,0 +1,87 @@
+<div id="cookie-consent" class="cookie-banner" style="display:none;">
+  <div class="cookie-content">
+    <p>
+      This site uses only necessary cookies that are required for proper operation and login functionality.
+
+      We do not collect any other data or track your activity.
+    </p>
+    <div class="cookie-actions">
+      <button id="accept-cookies" class="btn btn-primary">Accept</button>
+    </div>
+  </div>
+</div>
+
+<style>
+    .cookie-banner {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background-color: rgba(40, 40, 40, 0.9);
+        color: #fff;
+        padding: 15px;
+        z-index: 1000;
+        box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .cookie-content {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+    }
+
+    .cookie-content p {
+        flex: 1;
+        margin: 0 20px 0 0;
+        font-size: 0.9em;
+        line-height: 1.5;
+    }
+
+    .cookie-actions {
+        margin-top: 10px;
+    }
+
+    .cookie-actions button {
+        margin-left: 10px;
+        padding: 8px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-weight: bold;
+    }
+
+    .btn-primary {
+        background-color: #4e73df;
+        color: white;
+    }
+
+    @media (max-width: 768px) {
+        .cookie-content {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .cookie-content p {
+            margin-right: 0;
+            margin-bottom: 15px;
+        }
+    }
+</style>
+
+<script>
+    document.addEventListener('turbo:load', function() {
+        // Sprawdź, czy użytkownik już zaakceptował pliki cookie
+        if (!localStorage.getItem('cookieConsent')) {
+            document.getElementById('cookie-consent').style.display = 'block';
+        }
+
+        // Obsługa kliknięcia przycisku akceptacji
+        document.getElementById('accept-cookies').addEventListener('click', function() {
+            localStorage.setItem('cookieConsent', 'true');
+            document.getElementById('cookie-consent').style.display = 'none';
+        });
+    });
+</script>
