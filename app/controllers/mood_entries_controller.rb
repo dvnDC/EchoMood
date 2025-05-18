@@ -7,16 +7,14 @@ class MoodEntriesController < ApplicationController
 
     # Zmiana - pokazujemy tylko ostatnie 28 dni
     end_date = Date.today
-    start_date = end_date - 27.days  # 28 dni łącznie z dzisiejszym
+    start_date = end_date - 27.days 
 
     @mood_grid_data = {}
 
-    # Wypełnij siatkę pustymi wartościami dla wszystkich 28 dni
     (start_date..end_date).each do |date|
       @mood_grid_data[date] = nil
     end
 
-    # Uzupełnij dane z istniejących wpisów
     mood_entries_in_range = current_user.mood_entries
                                         .where(entry_date: start_date..end_date)
                                         .order(entry_date: :asc)
@@ -25,7 +23,6 @@ class MoodEntriesController < ApplicationController
       @mood_grid_data[entry.entry_date] = entry
     end
 
-    # Zachowujemy istniejącą funkcjonalność dla wykresu
     recent_entries = current_user.mood_entries
                                  .where(entry_date: 14.days.ago.to_date..Date.today)
                                  .order(entry_date: :asc)
@@ -58,7 +55,6 @@ class MoodEntriesController < ApplicationController
 
     respond_to do |format|
       if @mood_entry.save
-        # Wygeneruj sugestię AI po zapisaniu nastroju
         AiSuggestionJob.perform_later(@mood_entry.id)
 
         format.html { redirect_to mood_entries_path, notice: 'Mood entry was successfully created.' }

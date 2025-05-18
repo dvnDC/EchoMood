@@ -3,7 +3,9 @@ class EmotionEntry < ApplicationRecord
 
   validates :valence, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: -10, less_than_or_equal_to: 10 }
   validates :arousal, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: -10, less_than_or_equal_to: 10 }
-  validates :date, presence: true
+  validates :date, presence: true, uniqueness: { scope: :user_id,
+                                                 message: "You can only create one emotion entry per day. Edit your existing entry instead." }
+
   validates :entry_time, presence: true
 
   # Auxiliary methods for determining the emotion quadrant

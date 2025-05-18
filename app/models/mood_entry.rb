@@ -2,7 +2,8 @@ class MoodEntry < ApplicationRecord
   belongs_to :user
 
   validates :mood_level, presence: true, inclusion: { in: 1..5 }
-  validates :entry_date, presence: true
+  validates :entry_date, presence: true, uniqueness: { scope: :user_id,
+                                                       message: "You can only create one mood entry per day. Edit your existing entry instead." }
 
   before_validation :set_default_entry_date, on: :create
   after_create_commit :enqueue_ai_suggestion_job
