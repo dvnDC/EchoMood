@@ -9,11 +9,13 @@ class User < ApplicationRecord
   has_and_belongs_to_many :roles, join_table: 'roles_users'
 
   validates :nickname, presence: true, uniqueness: { case_sensitive: false }
-  
+
+  self.filter_attributes -= [:nickname]
+
   def email_required?
     false
   end
-  
+
   def email_changed?
     false
   end

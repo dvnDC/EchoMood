@@ -66,12 +66,6 @@
     text-align: center;
 }
 
-.mood-level-1 { background-color: #d32f2f; }
-.mood-level-2 { background-color: #f57c00; }
-.mood-level-3 { background-color: #fbc02d; }
-.mood-level-4 { background-color: #7cb342; }
-.mood-level-5 { background-color: #388e3c; }
-
 .notes-preview {
     font-size: 0.9em;
     color: #666;
@@ -146,15 +140,15 @@
 }
 
 .mood-cell.level-1 {
-    background-color: #ff0000;
+    background-color: rgba(228, 16, 16, 0.67);
 }
 
 .mood-cell.level-2 {
-    background-color: #ff7f7f;
+    background-color: rgba(255, 127, 127, 0.7);
 }
 
 .mood-cell.level-3 {
-    background-color: #fdffb6;
+    background-color: rgba(215, 223, 94, 0.73);
 }
 
 .mood-cell.level-4 {
@@ -162,7 +156,7 @@
 }
 
 .mood-cell.level-5 {
-    background-color: #089e08;
+    background-color: rgba(8, 158, 8, 0.75);
 }
 
 
