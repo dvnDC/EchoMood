@@ -15,13 +15,6 @@
     <strong>Notes:</strong>
     <%= @mood_entry.note.present? ? @mood_entry.note : "No notes provided" %>
   </p>
-
-  <% if @mood_entry.ai_suggestion.present? %>
-    <div class="ai-suggestion-box">
-      <h3>AI Suggestion</h3>
-      <p><%= @mood_entry.ai_suggestion %></p>
-    </div>
-  <% end %>
 </div>
 
 <div class="entry-actions">

@@ -5,9 +5,8 @@ class MoodEntriesController < ApplicationController
     @mood_entries = current_user.mood_entries.order(created_at: :asc)
     @recent_mood_entries = current_user.mood_entries.order(created_at: :desc).limit(5)
 
-    # Zmiana - pokazujemy tylko ostatnie 28 dni
     end_date = Date.today
-    start_date = end_date - 27.days 
+    start_date = end_date - 13.days
 
     @mood_grid_data = {}
 
