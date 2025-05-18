@@ -3,15 +3,15 @@
   <div class="container">
     <div id="content">
       <div class="articles-header">
-        <h2>Artykuły i poradniki</h2>
-        <p>Pogłęb swoją wiedzę o śledzeniu nastrojów i emocji poprzez nasze eksperckie materiały</p>
+        <h2>Articles and guides</h2>
+        <p>Deepen your knowledge of tracking moods and emotions with our expert materials</p>
       </div>
 
       <div class="row gtr-200">
         <!-- Left column -->
         <div class="col-6 col-12-narrower">
           <div class="articles-category">
-            <h3>Podstawowe zagadnienia</h3>
+            <h3>Basic issues</h3>
 
             <% @standard_articles.each_with_index do |article, index| %>
               <div class="article-card">
@@ -23,13 +23,13 @@
                 <div class="article-content">
                   <div>
                     <div class="article-meta">
-                      <span class="article-tag">Podstawy</span>
+                      <span class="article-tag">Basics</span>
                     </div>
                     <h4><%= article[:title] %></h4>
-                    <p>Podstawowe informacje na temat śledzenia nastroju i pracy z emocjami</p>
+                    <p>Basics on tracking mood and working with emotions</p>
                   </div>
                   <div>
-                    <%= link_to "Czytaj więcej", article_path(article[:id]), class: "article-button" %>
+                    <%= link_to "Read more", article_path(article[:id]), class: "article-button" %>
                   </div>
                 </div>
               </div>
@@ -40,7 +40,7 @@
         <!-- Right column -->
         <div class="col-6 col-12-narrower">
           <div class="articles-category">
-            <h3>Zaawansowane tematy</h3>
+            <h3>Advanced Topics</h3>
 
             <% @advanced_articles.each_with_index do |article, index| %>
               <div class="article-card">
@@ -52,13 +52,13 @@
                 <div class="article-content">
                   <div>
                     <div class="article-meta">
-                      <span class="article-tag">Zaawansowane</span>
+                      <span class="article-tag">Advanced</span>
                     </div>
                     <h4><%= article[:title] %></h4>
-                    <p>Pogłębione analizy i techniki dla osób pragnących rozwinąć swoje umiejętności</p>
+                    <p>In-depth analysis and techniques for those looking to develop their skills</p>
                   </div>
                   <div>
-                    <%= link_to "Czytaj więcej", article_path(article[:id]), class: "article-button" %>
+                    <%= link_to "Read more", article_path(article[:id]), class: "article-button" %>
                   </div>
                 </div>
               </div>
