@@ -113,7 +113,7 @@
     gap: 1px;
     border: 1px solid #ddd;
     margin: 20px 0;
-    background-color: #ddd; /* Kolor przerw */
+    background-color: #ddd;
 }
 
 .mood-cell {
@@ -146,24 +146,25 @@
 }
 
 .mood-cell.level-1 {
-    background-color: #ffadad; /* Czerwony - bardzo zły nastrój */
+    background-color: #ff0000;
 }
 
 .mood-cell.level-2 {
-    background-color: #ffd6a5; /* Pomarańczowy - zły nastrój */
+    background-color: #ff7f7f;
 }
 
 .mood-cell.level-3 {
-    background-color: #fdffb6; /* Żółty - neutralny nastrój */
+    background-color: #fdffb6;
 }
 
 .mood-cell.level-4 {
-    background-color: #caffbf; /* Jasnozielony - dobry nastrój */
+    background-color: #91cc0f;
 }
 
 .mood-cell.level-5 {
-    background-color: #9bf6ff; /* Niebieski - bardzo dobry nastrój */
+    background-color: #089e08;
 }
+
 
 .mood-tooltip {
     visibility: hidden;
