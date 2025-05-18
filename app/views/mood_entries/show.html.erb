@@ -1,5 +1,30 @@
-<h1><%= @mood_entry.mood_level %></h1>
-<p><%= @mood_entry.note %></p>
+<h1>Mood Entry Details</h1>
 
-<%= link_to 'Edit', edit_mood_entry_path(@mood_entry) %> |
-<%= link_to 'Back to List', mood_entries_path %>
+<div class="mood-details">
+  <p>
+    <strong>Mood Level:</strong>
+    <%= @mood_entry.mood_level_description %>
+  </p>
+
+  <p>
+    <strong>Date:</strong>
+    <%= @mood_entry.entry_date %>
+  </p>
+
+  <p>
+    <strong>Notes:</strong>
+    <%= @mood_entry.note.present? ? @mood_entry.note : "No notes provided" %>
+  </p>
+
+  <% if @mood_entry.ai_suggestion.present? %>
+    <div class="ai-suggestion-box">
+      <h3>AI Suggestion</h3>
+      <p><%= @mood_entry.ai_suggestion %></p>
+    </div>
+  <% end %>
+</div>
+
+<div class="entry-actions">
+  <%= link_to "Edit", edit_mood_entry_path(@mood_entry), class: "button" %>
+  <%= link_to "Back to Mood Entries", mood_entries_path, class: "button alt" %>
+</div>

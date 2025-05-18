@@ -87,16 +87,16 @@ export default class extends Controller {
                     ctx.textAlign = 'center';
 
                     // Q1 - top right
-                    ctx.fillText('Radość/Podekscytowanie', (xAxis.right + xZero) / 2, (yAxis.top + yZero) / 2);
+                    ctx.fillText('Joy/Excitement', (xAxis.right + xZero) / 2, (yAxis.top + yZero) / 2);
 
                     // Q2 - top left
-                    ctx.fillText('Złość/Lęk', (xAxis.left + xZero) / 2, (yAxis.top + yZero) / 2);
+                    ctx.fillText('Anger/Fear', (xAxis.left + xZero) / 2, (yAxis.top + yZero) / 2);
 
                     // Q3 - bottom left
-                    ctx.fillText('Smutek/Przygnębienie', (xAxis.left + xZero) / 2, (yAxis.bottom + yZero) / 2);
+                    ctx.fillText('Sadness/Depression', (xAxis.left + xZero) / 2, (yAxis.bottom + yZero) / 2);
 
                     // Q4 - bottom right
-                    ctx.fillText('Spokój/Relaks', (xAxis.right + xZero) / 2, (yAxis.bottom + yZero) / 2);
+                    ctx.fillText('Peace/Relaxation', (xAxis.right + xZero) / 2, (yAxis.bottom + yZero) / 2);
 
                     ctx.restore();
                 }

@@ -26,15 +26,15 @@ export default class extends Controller {
 
     predictEmotion(valence, arousal) {
         if (valence > 0 && arousal > 0) {
-            return "Radość/Podekscytowanie"
+            return "Joy/Excitement"
         } else if (valence < 0 && arousal > 0) {
-            return "Złość/Lęk"
+            return "Anger/Fear"
         } else if (valence < 0 && arousal < 0) {
-            return "Smutek/Przygnębienie"
+            return "Sadness/Depression"
         } else if (valence > 0 && arousal < 0) {
-            return "Spokój/Relaks"
+            return "Peace/Relaxation"
         } else {
-            return "Neutralnie"
+            return "Neutral"
         }
     }
 }

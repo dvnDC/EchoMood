@@ -36,33 +36,33 @@ class EmotionEntry < ApplicationRecord
       end
     when 2
       if valence.abs > 7 && arousal.abs > 7
-        "Wściekłość/Rage"
+        "Rage"
       elsif valence.abs > 7
-        "Złość/Anger"
+        "Anger"
       elsif arousal.abs > 7
-        "Zdenerwowanie/Nervousness"
+        "Nervousness"
       else
-        "Frustracja/Frustration"
+        "Frustration"
       end
     when 3
       if valence.abs > 7 && arousal.abs > 7
-        "Głęboki smutek/Deep sadness"
+        "Deep sadness"
       elsif valence.abs > 7
-        "Przygnębienie/Depression"
+        "Depression"
       elsif arousal.abs > 7
-        "Znużenie/Weariness"
+        "Weariness"
       else
-        "Smutek/Sadness"
+        "Sadness"
       end
     when 4
       if valence.abs > 7 && arousal.abs > 7
-        "Głęboki spokój/Deep peace"
+        "Deep peace"
       elsif valence.abs > 7
-        "Błogość/Bliss"
+        "Bliss"
       elsif arousal.abs > 7
-        "Relaks/Relaxation"
+        "Relaxation"
       else
-        "Zadowolenie/Satisfaction"
+        "Satisfaction"
       end
     end
   end

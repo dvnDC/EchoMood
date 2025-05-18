@@ -11,9 +11,9 @@
             <h3>My emotions</h3>
             <p>Take a moment to pause. Think about what’s going on in your world today—both inside and out..</p>
             <p>Your mood is an important signal. Write it down and give yourself space to understand.</p>
-            <p>✍️ Click “Add a post” when you’re ready.</p>
+            <p>✍️ Click “New Entry” when you’re ready.</p>
             <footer>
-              <%= link_to "Nowy wpis", new_emotion_entry_path, class: "button primary" %>
+              <%= link_to "New Entry", new_emotion_entry_path, class: "button primary" %>
             </footer>
           </section>
 
@@ -53,8 +53,8 @@
 
           <article>
             <header>
-              <h2>Wykres emocji</h2>
-              <p>Wizualizacja Twoich emocji na układzie współrzędnych</p>
+              <h2>Emotion chart</h2>
+              <p>Visualization of your emotions on a coordinate system</p>
             </header>
             <div data-controller="quadrant-chart">
               <canvas
@@ -77,16 +77,16 @@
             <div class="chart-legend" style="margin-top: 20px; padding: 10px; background-color: #f5f5f5; border: 1px solid #ddd;">
               <h4>Legenda:</h4>
               <div class="quadrant">
-                <div class="quadrant-label">Q1: Pozytywna energiczność - Radość, podekscytowanie, euforia</div>
+                <div class="quadrant-label">Q1: Positive energy - Joy, excitement, euphoria</div>
               </div>
               <div class="quadrant">
-                <div class="quadrant-label">Q2: Negatywna energiczność - Złość, lęk, stres</div>
+                <div class="quadrant-label">Q2: Negative energy - Anger, fear, stress</div>
               </div>
               <div class="quadrant">
-                <div class="quadrant-label">Q3: Negatywny spokój - Smutek, przygnębienie, znużenie</div>
+                <div class="quadrant-label">Q3: Negative peace - Sadness, depression, weariness</div>
               </div>
               <div class="quadrant">
-                <div class="quadrant-label">Q4: Pozytywny spokój - Relaks, ukontentowanie, spokój</div>
+                <div class="quadrant-label">Q4: Positive Peace - Relaxation, contentment, peace</div>
               </div>
             </div>
           </article>

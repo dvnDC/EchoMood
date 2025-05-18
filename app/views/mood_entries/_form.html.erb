@@ -1,7 +1,7 @@
 <%= form_with(model: @mood_entry, local: true) do |form| %>
   <% if @mood_entry.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@mood_entry.errors.count, "error") %> prohibited this mood_entry from being saved:</h2>
+      <h2><%= pluralize(@mood_entry.errors.count, "error") %> prohibited this mood entry from being saved:</h2>
       <ul>
         <% @mood_entry.errors.full_messages.each do |message| %>
           <li><%= message %></li>
@@ -10,20 +10,24 @@
     </div>
   <% end %>
 
-  <div>
-    <%= form.label :mood_level %>
-    <%= form.text_field :mood_level %>
+  <div class="field">
+    <%= form.label :mood_level, "Your Mood Today" %>
+    <%= form.select :mood_level,
+                    MoodEntry.mood_level_options.map { |value, text| [text, value] },
+                    { prompt: "Select your mood level" },
+                    { class: "form-control" } %>
   </div>
 
-  <div>
-    <%= form.label :note %>
-    <%= form.text_area :note %>
+  <div class="field">
+    <%= form.label :note, "Notes (optional)" %>
+    <%= form.text_area :note, rows: 5, class: "form-control" %>
   </div>
 
-
-
-  <div class="form-actions">
-    <%= form.submit "Zapisz", class: "button primary" %>
-    <%= link_to "Anuluj", emotion_entries_path, class: "button secondary" %>
+  <div class="actions">
+    <%= form.submit "Save", class: "button primary" %>
   </div>
 <% end %>
+
+<div class="info-box">
+  <p>You can add one mood entry per day. If you've already added an entry today, you can edit it instead.</p>
+</div>
