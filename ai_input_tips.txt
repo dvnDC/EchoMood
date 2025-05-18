@@ -1,0 +1,119 @@
+# Najpierw zdefiniuj użytkownika
+x = User.find(3) # możesz zmienić na dowolny istniejący ID
+
+# Usuń istniejące wpisy dla czystości danych (opcjonalnie)
+x.mood_entries.destroy_all
+x.emotion_entries.destroy_all
+
+# Przygotuj przykładowe opisy dla wpisów nastroju
+mood_notes = [
+  "Dziś miałem/am wspaniały dzień, wszystko poszło zgodnie z planem.",
+  "Nie czuję się najlepiej dzisiaj, mam dużo stresu w pracy.",
+  "Zwyczajny dzień, nic specjalnego się nie wydarzyło.",
+  "Spotkałem/am się z przyjaciółmi, poprawiło mi to humor.",
+  "Zły dzień, nic mi się nie udawało.",
+  "Udało mi się zakończyć ważny projekt, jestem dumny/a z siebie.",
+  "Czuję zmęczenie i przygnębienie przez pogodę.",
+  "Dziś dowiedziałem/am się dobrych wiadomości, jestem podekscytowany/a.",
+  "Średni dzień, mieszane uczucia.",
+  "Trochę stresujący dzień, ale przetrwałem/am.",
+  "Dużo przemyśleń, spokojny dzień.",
+  "Dziś czuję wdzięczność za to co mam.",
+  "Mało energii, ale dobry nastrój.",
+  "Produktywny dzień, dużo zrobiłem/am."
+]
+
+# Przykładowe opisy dla wpisów emocji
+emotion_notes = [
+  "Czuję się pełen/na energii i optymizmu.",
+  "Jestem zdenerwowany/a po kłótni z przyjacielem.",
+  "Czuję się zmęczony/a, ale spokojny/a.",
+  "Niepokój przed ważnym spotkaniem jutro.",
+  "Poczułem/am ulgę po zakończeniu trudnego zadania.",
+  "Frustracja i złość z powodu problemów w pracy.",
+  "Spokój i zadowolenie po medytacji.",
+  "Radość z małych rzeczy dzisiaj.",
+  "Czuję smutek bez wyraźnego powodu.",
+  "Jestem wdzięczny/a za wsparcie, które otrzymałem/am.",
+  "Mam nadzieję na lepsze jutro.",
+  "Dzisiaj czuję się wyjątkowo kreatywny/a.",
+  "Jestem zdezorientowany/a swoimi uczuciami.",
+  "Czuję spokój i harmonię."
+]
+
+# Generowanie 14 wpisów nastroju dla ostatnich 14 dni
+14.times do |i|
+  date = Date.today - (13 - i).days
+
+  # Sprawdź, czy już istnieje wpis na dany dzień
+  next if x.mood_entries.exists?(entry_date: date)
+
+  # Losowy poziom nastroju (1-5)
+  mood_level = rand(1..5)
+
+  # Tworzenie wpisu nastroju
+  mood_entry = x.mood_entries.create!(
+    mood_level: mood_level,
+    entry_date: date,
+    note: mood_notes[i % mood_notes.length],
+    created_at: date.to_time + rand(9..17).hours + rand(0..59).minutes,
+    updated_at: date.to_time + rand(9..17).hours + rand(0..59).minutes
+  )
+
+  puts "Utworzono MoodEntry dla dnia #{date}, poziom nastroju: #{mood_level}"
+end
+
+# Generowanie 14 wpisów emocji dla ostatnich 14 dni
+14.times do |i|
+  date = Date.today - (13 - i).days
+
+  # Sprawdź, czy już istnieje wpis na dany dzień
+  next if x.emotion_entries.exists?(date: date)
+
+  # Losowe wartości dla walencji i pobudzenia
+  # Walencja: -10 do 10 (negatywna do pozytywnej)
+  # Pobudzenie: -10 do 10 (niskie do wysokie)
+
+  # Powiążmy walencję z poziomem nastroju, aby dane były spójne
+  mood_entry = x.mood_entries.find_by(entry_date: date)
+
+  if mood_entry
+    # Walencja zależna od poziomu nastroju
+    # 1 -> -10 do -6, 2 -> -5 do -1, 3 -> -2 do 2, 4 -> 1 do 5, 5 -> 6 do 10
+    valence_ranges = {
+      1 => (-10..-6),
+      2 => (-5..-1),
+      3 => (-2..2),
+      4 => (1..5),
+      5 => (6..10)
+    }
+
+    valence = rand(valence_ranges[mood_entry.mood_level])
+
+    # Arousal (pobudzenie) jest niezależne
+    arousal = rand(-10..10)
+
+    # Tworzenie wpisu emocji
+    entry_time = date.to_time + rand(9..17).hours + rand(0..59).minutes
+
+    emotion_entry = x.emotion_entries.create!(
+      valence: valence,
+      arousal: arousal,
+      date: date,
+      entry_time: entry_time,
+      notes: emotion_notes[i % emotion_notes.length],
+      created_at: entry_time,
+      updated_at: entry_time,
+      emotion_type: nil # będzie automatycznie wypełnione przez predicted_emotion
+    )
+
+    # Aktualizuj emotion_type na podstawie predicted_emotion
+    emotion_entry.update(emotion_type: emotion_entry.predicted_emotion)
+
+    puts "Utworzono EmotionEntry dla dnia #{date}, walencja: #{valence}, pobudzenie: #{arousal}, emocja: #{emotion_entry.emotion_type}"
+  else
+    puts "Brak MoodEntry dla dnia #{date}, pomijam tworzenie EmotionEntry"
+  end
+end
+
+puts "Zakończono generowanie przykładowych wpisów!"
