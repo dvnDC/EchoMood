@@ -72,7 +72,7 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
   gem "rspec-core", "~> 3.13.3"
-  gem "rspec-expectations", "~> 3.13.3"
+  gem "rspec-expectations", "~> 3.13.5"
   gem "rspec-mocks", "~> 3.13.2"
   gem "rspec-support", "~> 3.13.2"
   gem "diff-lcs", "~> 1.6.1"
