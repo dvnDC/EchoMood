@@ -26,13 +26,13 @@ class EmotionEntry < ApplicationRecord
     case quadrant
     when 1
       if valence.abs > 7 && arousal.abs > 7
-        "Euforia/Euphoria"
+        "Euphoria"
       elsif valence.abs > 7
-        "Radość/Joy"
+        "Joy"
       elsif arousal.abs > 7
-        "Podekscytowanie/Excitement"
+        "Excitement"
       else
-        "Zadowolenie/Satisfaction"
+        "Satisfaction"
       end
     when 2
       if valence.abs > 7 && arousal.abs > 7
