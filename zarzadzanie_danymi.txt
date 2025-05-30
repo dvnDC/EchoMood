@@ -1,0 +1,215 @@
+# Skrypt do generowania użytkowników badawczych z wpisami
+# Uruchom w konsoli Rails: rails console
+# Następnie wklej i uruchom ten kod
+
+puts "Rozpoczynam tworzenie użytkowników badawczych..."
+
+# Przygotuj przykładowe opisy dla wpisów nastroju
+mood_notes = [
+  "Dziś miałem/am wspaniały dzień, wszystko poszło zgodnie z planem.",
+  "Nie czuję się najlepiej dzisiaj, mam dużo stresu w pracy.",
+  "Zwyczajny dzień, nic specjalnego się nie wydarzyło.",
+  "Spotkałem/am się z przyjaciółmi, poprawiło mi to humor.",
+  "Zły dzień, nic mi się nie udawało.",
+  "Udało mi się zakończyć ważny projekt, jestem dumny/a z siebie.",
+  "Czuję zmęczenie i przygnębienie przez pogodę.",
+  "Dziś dowiedziałem/am się dobrych wiadomości, jestem podekscytowany/a.",
+  "Średni dzień, mieszane uczucia.",
+  "Trochę stresujący dzień, ale przetrwałem/am.",
+  "Dużo przemyśleń, spokojny dzień.",
+  "Dziś czuję wdzięczność za to co mam.",
+  "Mało energii, ale dobry nastrój.",
+  "Produktywny dzień, dużo zrobiłem/am.",
+  "Świetne samopoczucie po treningu.",
+  "Stresujący dzień przed egzaminem.",
+  "Relaksujący weekend z rodziną.",
+  "Trudny dzień w pracy, ale się udało.",
+  "Czuję się bardzo kreatywny/a dzisiaj.",
+  "Spokojny wieczór z książką."
+]
+
+# Przykładowe opisy dla wpisów emocji
+emotion_notes = [
+  "Czuję się pełen/na energii i optymizmu.",
+  "Jestem zdenerwowany/a po kłótni z przyjacielem.",
+  "Czuję się zmęczony/a, ale spokojny/a.",
+  "Niepokój przed ważnym spotkaniem jutro.",
+  "Poczułem/am ulgę po zakończeniu trudnego zadania.",
+  "Frustracja i złość z powodu problemów w pracy.",
+  "Spokój i zadowolenie po medytacji.",
+  "Radość z małych rzeczy dzisiaj.",
+  "Czuję smutek bez wyraźnego powodu.",
+  "Jestem wdzięczny/a za wsparcie, które otrzymałem/am.",
+  "Mam nadzieję na lepsze jutro.",
+  "Dzisiaj czuję się wyjątkowo kreatywny/a.",
+  "Jestem zdezorientowany/a swoimi uczuciami.",
+  "Czuję spokój i harmonię.",
+  "Podekscytowanie nowym projektem.",
+  "Lekka melancholia na jesieni.",
+  "Energia po dobrym śnie.",
+  "Zadowolenie z osiągnięć.",
+  "Niepewność co do przyszłości.",
+  "Wdzięczność za piękny dzień."
+]
+
+# Przykładowe imiona i nicknamy
+names = ["Anna Nowak", "Jan Kowalski", "Maria Wiśniewska", "Piotr Dąbrowski", "Katarzyna Lewandowska",
+         "Tomasz Wójcik", "Agnieszka Kamińska", "Michał Kowalczyk", "Magdalena Zielińska", "Paweł Szymański",
+         "Joanna Woźniak", "Krzysztof Kozłowski", "Barbara Jankowska", "Marcin Wojciechowski", "Monika Kwiatkowska"]
+
+nicknames = ["anna_n", "jan_k", "maria_w", "piotr_d", "kasia_l", "tomek_w", "agnieszka_k", "michal_k",
+             "magda_z", "pawel_s", "asia_w", "krzysiek_k", "basia_j", "marcin_w", "monika_k"]
+
+# Znajdź istniejącą rolę research_participant lub utwórz nową
+research_role = Role.find_by(name: 'research_participant')
+
+if research_role.nil?
+  research_role = Role.create!(name: 'research_participant', description: 'Research participant role')
+  puts "Utworzono nową rolę: research_participant"
+else
+  puts "Znaleziono istniejącą rolę: research_participant"
+end
+
+# Utwórz 15 użytkowników z datami rejestracji między 10-20 maja 2024
+created_users = []
+
+15.times do |i|
+  # Losowa data rejestracji między 10 a 20 maja 2024
+  registration_date = Date.new(2024, 5, rand(10..20))
+  registration_time = registration_date.to_time + rand(8..20).hours + rand(0..59).minutes
+
+  # Sprawdź czy użytkownik o takim emailu już istnieje
+  email = "research_participant_#{i+1}@example.com"
+  nickname = "#{nicknames[i]}_#{i+1}"
+
+  if User.exists?(email: email) || User.exists?(nickname: nickname)
+    puts "Użytkownik #{email} lub nickname #{nickname} już istnieje, pomijam..."
+    next
+  end
+
+  user = User.create!(
+    email: email,
+    password: "password123",
+    password_confirmation: "password123",
+    name: names[i],
+    nickname: nickname,
+    bio: "Research participant created on #{registration_date}",
+    created_at: registration_time,
+    updated_at: registration_time
+  )
+
+  # Dodaj rolę research_participant (sprawdź czy już nie ma)
+  unless user.roles.include?(research_role)
+    user.roles << research_role
+  end
+
+  created_users << user
+  puts "Utworzono użytkownika: #{user.name} (#{user.nickname}) - rejestracja: #{registration_date}"
+
+  # Generuj wpisy od daty rejestracji do dzisiaj
+  start_date = registration_date
+  end_date = Date.today
+
+  # Generowanie wpisów nastroju
+  (start_date..end_date).each_with_index do |date, day_index|
+    # Nie każdy dzień musi mieć wpis (75% szans na wpis)
+    next if rand > 0.75
+
+    # Sprawdź, czy już istnieje wpis na dany dzień
+    next if user.mood_entries.exists?(entry_date: date)
+
+    # Losowy poziom nastroju (1-5)
+    mood_level = rand(1..5)
+
+    # Losowy czas w ciągu dnia
+    entry_time = date.to_time + rand(9..21).hours + rand(0..59).minutes
+
+    # Tworzenie wpisu nastroju
+    mood_entry = user.mood_entries.create!(
+      mood_level: mood_level,
+      entry_date: date,
+      note: mood_notes[day_index % mood_notes.length],
+      created_at: entry_time,
+      updated_at: entry_time
+    )
+
+    puts "  - MoodEntry dla #{date}: poziom #{mood_level}"
+  end
+
+  # Generowanie wpisów emocji
+  (start_date..end_date).each_with_index do |date, day_index|
+    # Nie każdy dzień musi mieć wpis (70% szans na wpis)
+    next if rand > 0.70
+
+    # Sprawdź, czy już istnieje wpis na dany dzień
+    next if user.emotion_entries.exists?(date: date)
+
+    # Znajdź odpowiedni mood_entry jeśli istnieje
+    mood_entry = user.mood_entries.find_by(entry_date: date)
+
+    # Walencja zależna od poziomu nastroju (jeśli istnieje mood_entry)
+    if mood_entry
+      valence_ranges = {
+        1 => (-10..-6),
+        2 => (-5..-1),
+        3 => (-2..2),
+        4 => (1..5),
+        5 => (6..10)
+      }
+      valence = rand(valence_ranges[mood_entry.mood_level])
+    else
+      # Jeśli nie ma mood_entry, losowa walencja
+      valence = rand(-10..10)
+    end
+
+    # Arousal (pobudzenie) jest niezależne
+    arousal = rand(-10..10)
+
+    # Losowy czas w ciągu dnia
+    entry_time = date.to_time + rand(9..21).hours + rand(0..59).minutes
+
+    # Tworzenie wpisu emocji
+    emotion_entry = user.emotion_entries.create!(
+      valence: valence,
+      arousal: arousal,
+      date: date,
+      entry_time: entry_time,
+      notes: emotion_notes[day_index % emotion_notes.length],
+      created_at: entry_time,
+      updated_at: entry_time,
+      emotion_type: nil # będzie automatycznie wypełnione przez predicted_emotion
+    )
+
+    # Aktualizuj emotion_type na podstawie predicted_emotion (jeśli metoda istnieje)
+    if emotion_entry.respond_to?(:predicted_emotion)
+      emotion_entry.update(emotion_type: emotion_entry.predicted_emotion)
+    end
+
+    puts "  - EmotionEntry dla #{date}: valence #{valence}, arousal #{arousal}"
+  end
+
+  puts "Zakończono tworzenie wpisów dla użytkownika #{user.name}"
+  puts "---"
+end
+
+puts "\n=== PODSUMOWANIE ==="
+puts "Utworzono #{created_users.length} użytkowników badawczych"
+
+# Sprawdź liczbę wpisów dla użytkowników z rolą research_participant
+research_users = User.joins(:roles).where(roles: {name: 'research_participant'})
+total_mood_entries = MoodEntry.joins(:user).joins('JOIN roles_users ON users.id = roles_users.user_id JOIN roles ON roles_users.role_id = roles.id').where(roles: {name: 'research_participant'}).count
+total_emotion_entries = EmotionEntry.joins(:user).joins('JOIN roles_users ON users.id = roles_users.user_id JOIN roles ON roles_users.role_id = roles.id').where(roles: {name: 'research_participant'}).count
+
+puts "Łączna liczba mood_entries: #{total_mood_entries}"
+puts "Łączna liczba emotion_entries: #{total_emotion_entries}"
+puts "\nNowi użytkownicy:"
+created_users.each do |user|
+  puts "- #{user.name} (#{user.nickname}) - #{user.mood_entries.count} mood entries, #{user.emotion_entries.count} emotion entries"
+end
+
+puts "\nWszyscy użytkownicy badawczy:"
+research_users.each do |user|
+  puts "- #{user.name} (#{user.nickname}) - #{user.mood_entries.count} mood entries, #{user.emotion_entries.count} emotion entries"
+end
+
+puts "\nZakończono generowanie danych badawczych!"
