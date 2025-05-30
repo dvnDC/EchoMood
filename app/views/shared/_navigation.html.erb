@@ -46,7 +46,10 @@
           <li><%= link_to "Admin", admin_users_path %></li>
         <% end %>
         <li><%= link_to "#{current_user.nickname}", "#" %></li>
-        <li><%= link_to 'Logout', destroy_user_session_path, data: { turbo_method: :delete } %></li>
+        <li>
+          <%= form_with url: destroy_user_session_path, method: :delete, local: true, style: "display: inline;" do %>
+            <%= submit_tag "Logout", style: "background: none; border: none; color: rgba(255, 255, 255, 0.7); cursor: pointer; font-family: inherit; font-size: inherit; text-decoration: none; padding: 0; margin: 0; line-height: inherit; font-weight: inherit;" %>          <% end %>
+        </li>
       <% else %>
         <li class="<%= current_page?(new_user_session_path) ? 'current' : '' %>"><%= link_to 'Sign in', new_user_session_path %></li>
         <li class="<%= current_page?(new_user_registration_path) ? 'current' : '' %>"><%= link_to 'Sign up', new_user_registration_path %></li>
@@ -84,8 +87,14 @@
         <% if current_user.admin? %>
           <li><%= link_to admin_users_path, onclick: "document.getElementById('mobileMenu').classList.remove('show')" do %>Admin Panel<% end %></li>
         <% end %>
-        <li><%= link_to admin_users_path, onclick: "document.getElementById('mobileMenu').classList.remove('show')" do %>Profile (<%= current_user.nickname %>)<% end %></li>
-        <li><%= link_to destroy_user_session_path, data: { turbo_method: :delete }, onclick: "document.getElementById('mobileMenu').classList.remove('show')", class: "logout-btn" do %>Logout<% end %></li>
+        <li><%= link_to edit_user_registration_path, onclick: "document.getElementById('mobileMenu').classList.remove('show')" do %>Profile (<%= current_user.nickname %>)<% end %></li>
+        <li>
+          <%= form_with url: destroy_user_session_path, method: :delete, local: true, style: "display: block; margin: 0;" do %>
+            <%= submit_tag "Logout",
+                           style: "display: flex; align-items: center; padding: 18px 25px; background: rgba(231, 76, 60, 0.8); color: white; text-decoration: none; border-radius: 12px; font-size: 16px; font-weight: 500; transition: all 0.3s ease; backdrop-filter: blur(5px); border: 1px solid rgba(255, 255, 255, 0.1); width: 100%; cursor: pointer; font-family: inherit;",
+                           onclick: "document.getElementById('mobileMenu').classList.remove('show')" %>
+          <% end %>
+        </li>
       <% else %>
         <li><%= link_to new_user_session_path, onclick: "document.getElementById('mobileMenu').classList.remove('show')", class: "auth-btn" do %>Sign In<% end %></li>
         <li><%= link_to new_user_registration_path, onclick: "document.getElementById('mobileMenu').classList.remove('show')", class: "auth-btn" do %>Sign Up<% end %></li>

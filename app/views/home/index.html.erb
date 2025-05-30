@@ -100,7 +100,7 @@
       <% if user_signed_in? %>
         <h2>Welcome back, <%= current_user.nickname %> 🌞
           How are you feeling today?</h2>
-        <a href="#" class="button">Answer</a>
+        <%= link_to "Answer", mood_entries_path, class: "button" %>
       <% else %>
         <h2>Welcome to EchoMood 🌞
           Track your emotional well-being</h2>

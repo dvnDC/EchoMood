@@ -12,6 +12,10 @@ class User < ApplicationRecord
 
   self.filter_attributes -= [:nickname]
 
+  attr_accessor :research_consent
+
+  after_create :assign_role_based_on_consent
+
   def email_required?
     false
   end
@@ -31,7 +35,7 @@ class User < ApplicationRecord
   def admin?
     roles.where(name: 'admin').exists?
   end
-  
+
   def add_role(role_name)
     role = Role.find_or_create_by(name: role_name)
     roles << role unless roles.include?(role)
@@ -40,5 +44,15 @@ class User < ApplicationRecord
   def remove_role(role_name)
     role = Role.find_by(name: role_name)
     roles.delete(role) if role
+  end
+
+  private
+
+  def assign_role_based_on_consent
+    if research_consent == '1' || research_consent == true
+      add_role('research_participant')
+    else
+      add_role('regular')
+    end
   end
 end

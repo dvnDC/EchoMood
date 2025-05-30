@@ -26,13 +26,8 @@
                 <% @recent_mood_entries.each do |entry| %>
                   <li>
                     <%= link_to mood_entry_path(entry) do %>
-                      <strong><%= entry.entry_date&.strftime("%b %d") || "No date" %></strong>
-                      <% if entry.created_at.present? %>
-                        at <%= entry.created_at.strftime("%I:%M %p") %> -
-                      <% else %>
-                        -
-                      <% end %>
-                      Mood: <%= entry.mood_level %>
+                      <strong><%= entry.entry_date&.strftime("%b %d") || "No date" %></strong> -
+                      Mood: <span class="mood-level-text level-<%= entry.mood_level %>"><%= entry.mood_level_description.split(" - ").last %></span>
                     <% end %>
                   </li>
                 <% end %>
@@ -45,6 +40,7 @@
               <%= link_to "View all entries", all_mood_entries_path, class: "button" %>
             </footer>
           </section>
+
 
         </div>
       </div>
@@ -66,31 +62,49 @@
             <h3>Your Mood Calendar</h3>
             <p>Each tile represents a day, colored by your mood level. Hover over a tile to see details.</p>
 
-            <div class="mood-grid" data-controller="mood-grid">
-
-
-                <% @mood_grid_data.each do |date, entry| %>
-                  <% if entry.nil? %>
-                    <div class="mood-cell empty" data-date="<%= date.strftime('%Y-%m-%d') %>">
-                      <div class="mood-date"><%= date.strftime('%-d') %></div>
-                      <div class="mood-weekday"><%= date.strftime('%a') %></div>
-                      <span class="mood-tooltip"><%= date.strftime('%b %d, %Y') %> - No entry</span>
-                    </div>
-                  <% else %>
-                  <div class="mood-cell level-<%= entry.mood_level %>" data-date="<%= date.strftime('%Y-%m-%d') %>" data-entry-id="<%= entry.id %>">
-                      <div class="mood-date"><%= date.strftime('%-d') %></div>
-                      <div class="mood-weekday"><%= date.strftime('%a') %></div>
-                      <div class="mood-level"><%= entry.mood_level %></div>
-                      <span class="mood-tooltip">
-                        <%= date.strftime('%b %d, %Y') %> - Mood: <%= entry.mood_level %>/5
-                        <% if entry.note.present? %>
-                          <br><small><%= truncate(entry.note, length: 30) %></small>
-                        <% end %>
-                      </span>
-                    </div>
-                  <% end %>
-                <% end %>
+            <div class="month-navigation">
+              <%= link_to "◀ Previous", mood_entries_path(month: @prev_month), class: "month-nav-btn" %>
+              <div class="month-header">
+                <h4><%= @month_date.strftime("%B %Y") %></h4>
               </div>
+              <%= link_to "Next ▶", mood_entries_path(month: @next_month), class: "month-nav-btn" %>
+            </div>
+
+            <div class="weekday-header">
+              <div class="weekday-label">Mon</div>
+              <div class="weekday-label">Tue</div>
+              <div class="weekday-label">Wed</div>
+              <div class="weekday-label">Thu</div>
+              <div class="weekday-label">Fri</div>
+              <div class="weekday-label">Sat</div>
+              <div class="weekday-label">Sun</div>
+            </div>
+
+            <div class="mood-grid" data-controller="mood-grid">
+              <% @mood_grid_data.each do |date, entry| %>
+                <% is_current_month = date.month == @month_date.month %>
+                <% if entry.nil? %>
+                  <div class="mood-cell empty <%= 'other-month' unless is_current_month %>" data-date="<%= date.strftime('%Y-%m-%d') %>">
+                    <div class="mood-date"><%= date.strftime('%-d') %></div>
+                    <span class="mood-tooltip"><%= date.strftime('%b %d, %Y') %> - No entry</span>
+                  </div>
+                <% else %>
+                  <div class="mood-cell level-<%= entry.mood_level %> <%= 'other-month' unless is_current_month %>" data-date="<%= date.strftime('%Y-%m-%d') %>" data-entry-id="<%= entry.id %>">
+                    <div class="mood-date"><%= date.strftime('%-d') %></div>
+                    <div class="mood-level-indicator"><%= entry.mood_level %></div>
+                    <span class="mood-tooltip">
+                      <%= date.strftime('%b %d, %Y') %> - Mood: <%= entry.mood_level_description.split(" - ").last %>
+                      <% if entry.note.present? %>
+                        <br><small><%= truncate(entry.note, length: 30) %></small>
+                      <% end %>
+                    </span>
+                  </div>
+                <% end %>
+              <% end %>
+            </div>
+
+
+
 
             <div class="mood-legend">
               <h4>Mood Legend:</h4>
