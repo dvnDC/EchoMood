@@ -57,8 +57,8 @@ names = ["Anna Nowak", "Jan Kowalski", "Maria Wiśniewska", "Piotr Dąbrowski", 
          "Tomasz Wójcik", "Agnieszka Kamińska", "Michał Kowalczyk", "Magdalena Zielińska", "Paweł Szymański",
          "Joanna Woźniak", "Krzysztof Kozłowski", "Barbara Jankowska", "Marcin Wojciechowski", "Monika Kwiatkowska"]
 
-nicknames = ["anna_n", "jan_k", "maria_w", "piotr_d", "kasia_l", "tomek_w", "agnieszka_k", "michal_k",
-             "magda_z", "pawel_s", "asia_w", "krzysiek_k", "basia_j", "marcin_w", "monika_k"]
+nicknames = ["mrs.eylen", "speedi", "bursztyn", "klekot123", "teczowyrafal", "alberto", "tikitaka", "patysia",
+             "anna", "pawel", "rocky", "ziemnior", "qwerty", "to_ja", "dwight"]
 
 # Znajdź istniejącą rolę research_participant lub utwórz nową
 research_role = Role.find_by(name: 'research_participant')
