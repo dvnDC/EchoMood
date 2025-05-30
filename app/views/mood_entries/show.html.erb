@@ -1,23 +1,33 @@
-<h1>Mood Entry Details</h1>
+<section class="wrapper style1">
+  <div class="container">
+    <div class="row gtr-200">
 
-<div class="mood-details">
-  <p>
-    <strong>Mood Level:</strong>
-    <%= @mood_entry.mood_level_description %>
-  </p>
 
-  <p>
-    <strong>Date:</strong>
-    <%= @mood_entry.entry_date %>
-  </p>
+      <h1>Mood Entry Details</h1>
 
-  <p>
-    <strong>Notes:</strong>
-    <%= @mood_entry.note.present? ? @mood_entry.note : "No notes provided" %>
-  </p>
-</div>
+      <div class="mood-details">
+        <p>
+          <strong>Mood Level:</strong>
+          <%= @mood_entry.mood_level_description %>
+        </p>
 
-<div class="entry-actions">
-  <%= link_to "Edit", edit_mood_entry_path(@mood_entry), class: "button" %>
-  <%= link_to "Back to Mood Entries", mood_entries_path, class: "button alt" %>
-</div>
+        <p>
+          <strong>Date:</strong>
+          <%= @mood_entry.entry_date %>
+        </p>
+
+        <p>
+          <strong>Notes:</strong>
+          <%= @mood_entry.note.present? ? @mood_entry.note : "No notes provided" %>
+        </p>
+      </div>
+
+
+    </div>
+
+    <div class="entry-actions">
+      <%= link_to "Edit", edit_mood_entry_path(@mood_entry), class: "button" %>
+      <%= link_to "Back to Mood Entries", mood_entries_path, class: "button alt" %>
+    </div>
+  </div>
+</section>

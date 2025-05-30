@@ -5,17 +5,31 @@ class MoodEntriesController < ApplicationController
     @mood_entries = current_user.mood_entries.order(created_at: :asc)
     @recent_mood_entries = current_user.mood_entries.order(created_at: :desc).limit(5)
 
-    end_date = Date.today
-    start_date = end_date - 13.days
+    if params[:month].present?
+      selected_date = Date.parse("#{params[:month]}-01")
+    else
+      selected_date = Date.today
+    end
+
+    start_date = selected_date.beginning_of_month
+    end_date = selected_date.end_of_month
+
+    start_of_grid = start_date.beginning_of_week(:monday)
+    end_of_grid = end_date.end_of_week(:monday)
+
+    @month_date = start_date
+    @prev_month = (start_date - 1.month).strftime("%Y-%m")
+    @next_month = (start_date + 1.month).strftime("%Y-%m")
+    @current_month = start_date.strftime("%Y-%m")
 
     @mood_grid_data = {}
 
-    (start_date..end_date).each do |date|
+    (start_of_grid..end_of_grid).each do |date|
       @mood_grid_data[date] = nil
     end
 
     mood_entries_in_range = current_user.mood_entries
-                                        .where(entry_date: start_date..end_date)
+                                        .where(entry_date: start_of_grid..end_of_grid)
                                         .order(entry_date: :asc)
 
     mood_entries_in_range.each do |entry|
@@ -35,6 +49,7 @@ class MoodEntriesController < ApplicationController
 
     @latest_mood_entry = current_user.mood_entries.order(created_at: :desc).first
   end
+
 
   def all
     @mood_entries = current_user.mood_entries.order(entry_date: :desc, created_at: :desc)
