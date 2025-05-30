@@ -1,0 +1,197 @@
+<section class="wrapper style1">
+  <div class="container">
+    <div id="content">
+
+      <h1>Edit Emotion Entry</h1>
+
+      <div class="actions-bar" style="margin-bottom: 30px;">
+        <%= link_to emotion_entries_path, class: "button" do %>
+          <i class="fa fa-arrow-left"></i> Back to Emotion Entries
+        <% end %>
+        <%= link_to @emotion_entry, class: "button" do %>
+          <i class="fa fa-eye"></i> View Entry
+        <% end %>
+      </div>
+
+      <div class="emotion-entry-form" style="background: white; border-radius: 12px; box-shadow: 0 5px 20px rgba(0,0,0,0.05); padding: 40px;">
+
+        <%= form_with model: @emotion_entry, local: true,
+                      data: { controller: "emotion-form" },
+                      style: "max-width: 800px; margin: 0 auto;" do |form| %>
+
+          <% if @emotion_entry.errors.any? %>
+            <div style="background: #fee; border: 1px solid #fcc; border-radius: 8px; padding: 20px; margin-bottom: 30px;">
+              <h4 style="color: #c33; margin: 0 0 10px 0;">
+                <i class="fa fa-exclamation-triangle"></i>
+                <%= pluralize(@emotion_entry.errors.count, "error") %> prohibited this entry from being saved:
+              </h4>
+              <ul style="margin: 0; padding-left: 20px; color: #c33;">
+                <% @emotion_entry.errors.full_messages.each do |message| %>
+                  <li><%= message %></li>
+                <% end %>
+              </ul>
+            </div>
+          <% end %>
+
+          <!-- Date and Time Section -->
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-bottom: 40px;">
+            <div class="form-group">
+              <%= form.label :date, style: "display: block; margin-bottom: 8px; font-weight: 600; color: #333;" %>
+              <%= form.date_field :date,
+                                  style: "width: 100%; padding: 12px; border: 2px solid #e2e8f0; border-radius: 8px; font-size: 1em; transition: border-color 0.3s ease;",
+                                  onfocus: "this.style.borderColor='#4e7ac7'",
+                                  onblur: "this.style.borderColor='#e2e8f0'" %>
+            </div>
+
+            <div class="form-group">
+              <%= form.label :entry_time, style: "display: block; margin-bottom: 8px; font-weight: 600; color: #333;" %>
+              <%= form.time_field :entry_time,
+                                  style: "width: 100%; padding: 12px; border: 2px solid #e2e8f0; border-radius: 8px; font-size: 1em; transition: border-color 0.3s ease;",
+                                  onfocus: "this.style.borderColor='#4e7ac7'",
+                                  onblur: "this.style.borderColor='#e2e8f0'" %>
+            </div>
+          </div>
+
+          <!-- Emotion Sliders Section -->
+          <div class="emotion-controls" style="margin-bottom: 40px;">
+            <h3 style="margin-bottom: 30px; color: #333; text-align: center;">Adjust Your Emotion Values</h3>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px;">
+              <!-- Valence Slider -->
+              <div class="slider-group">
+                <label style="display: block; margin-bottom: 15px; font-weight: 600; color: #333; font-size: 1.1em;">
+                  <i class="fa fa-arrows-alt-h" style="color: #4e7ac7; margin-right: 8px;"></i>
+                  Valence: <span data-emotion-form-target="valenceValue" style="color: #4e7ac7; font-weight: 700;"><%= @emotion_entry.valence %></span>
+                </label>
+
+                <%= form.range_field :valence,
+                                     in: -10..10, step: 1,
+                                     data: { emotion_form_target: "valenceSlider", action: "input->emotion-form#updateEmotionDisplay" },
+                                     style: "width: 100%; height: 8px; border-radius: 5px; background: linear-gradient(90deg, #ef4444 0%, #fbbf24 50%, #22c55e 100%); outline: none; -webkit-appearance: none;" %>
+
+                <div style="display: flex; justify-content: space-between; font-size: 0.85em; color: #666; margin-top: 8px;">
+                  <span>-10 (Very Unpleasant)</span>
+                  <span>0 (Neutral)</span>
+                  <span>+10 (Very Pleasant)</span>
+                </div>
+              </div>
+
+              <!-- Arousal Slider -->
+              <div class="slider-group">
+                <label style="display: block; margin-bottom: 15px; font-weight: 600; color: #333; font-size: 1.1em;">
+                  <i class="fa fa-arrows-alt-v" style="color: #4e7ac7; margin-right: 8px;"></i>
+                  Arousal: <span data-emotion-form-target="arousalValue" style="color: #4e7ac7; font-weight: 700;"><%= @emotion_entry.arousal %></span>
+                </label>
+
+                <%= form.range_field :arousal,
+                                     in: -10..10, step: 1,
+                                     data: { emotion_form_target: "arousalSlider", action: "input->emotion-form#updateEmotionDisplay" },
+                                     style: "width: 100%; height: 8px; border-radius: 5px; background: linear-gradient(90deg, #3b82f6 0%, #8b5cf6 50%, #ef4444 100%); outline: none; -webkit-appearance: none;" %>
+
+                <div style="display: flex; justify-content: space-between; font-size: 0.85em; color: #666; margin-top: 8px;">
+                  <span>-10 (Very Calm)</span>
+                  <span>0 (Neutral)</span>
+                  <span>+10 (Very Energetic)</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Emotion Preview -->
+          <div class="emotion-preview" style="background: #f8f9ff; border: 2px solid #e2e8f0; border-radius: 12px; padding: 25px; margin-bottom: 40px; text-align: center;">
+            <h4 style="margin: 0 0 10px 0; color: #4e7ac7;">
+              <i class="fa fa-eye"></i> Predicted Emotion
+            </h4>
+            <div data-emotion-form-target="predictedEmotion" style="font-size: 1.3em; font-weight: 600; color: #333;">
+              <!-- Will be updated by JavaScript -->
+            </div>
+          </div>
+
+          <!-- Interactive Emotion Chart -->
+          <div class="emotion-chart-container" style="margin-bottom: 40px;">
+            <h4 style="margin-bottom: 20px; color: #333; text-align: center;">
+              <i class="fa fa-map-marker"></i> Emotion Position
+            </h4>
+
+            <div style="display: flex; justify-content: center;">
+              <div class="emotion-quadrant" style="position: relative; width: 300px; height: 300px; border: 2px solid #e2e8f0; border-radius: 12px; background: #fafafa;">
+
+                <!-- Quadrant Labels -->
+                <div style="position: absolute; top: 10px; right: 10px; font-size: 0.75em; color: #666; text-align: center; font-weight: 500;">
+                  Joy/Excitement
+                </div>
+                <div style="position: absolute; top: 10px; left: 10px; font-size: 0.75em; color: #666; text-align: center; font-weight: 500;">
+                  Anger/Fear
+                </div>
+                <div style="position: absolute; bottom: 10px; left: 10px; font-size: 0.75em; color: #666; text-align: center; font-weight: 500;">
+                  Sadness/Depression
+                </div>
+                <div style="position: absolute; bottom: 10px; right: 10px; font-size: 0.75em; color: #666; text-align: center; font-weight: 500;">
+                  Peace/Relaxation
+                </div>
+
+                <!-- Center lines -->
+                <div style="position: absolute; top: 50%; left: 0; right: 0; height: 1px; background: #cbd5e0; transform: translateY(-50%);"></div>
+                <div style="position: absolute; left: 50%; top: 0; bottom: 0; width: 1px; background: #cbd5e0; transform: translateX(-50%);"></div>
+
+                <!-- Emotion marker -->
+                <div data-emotion-form-target="emotionMarker"
+                     style="position: absolute; width: 12px; height: 12px; background: #4e7ac7; border: 2px solid white; border-radius: 50%; box-shadow: 0 2px 8px rgba(78, 122, 199, 0.4); transform: translate(-50%, -50%); transition: all 0.3s ease; z-index: 10;">
+                </div>
+              </div>
+            </div>
+
+            <!-- Axis Labels -->
+            <div style="text-align: center; margin-top: 15px; font-size: 0.85em; color: #666;">
+              <div style="margin-bottom: 5px;">
+                <i class="fa fa-arrows-alt-h"></i> Valence: Unpleasant ← → Pleasant
+              </div>
+              <div>
+                <i class="fa fa-arrows-alt-v"></i> Arousal: Calm ← → Energetic
+              </div>
+            </div>
+          </div>
+
+          <!-- Notes Section -->
+          <div class="form-group" style="margin-bottom: 40px;">
+            <%= form.label :notes, style: "display: block; margin-bottom: 12px; font-weight: 600; color: #333; font-size: 1.1em;" do %>
+              <i class="fa fa-sticky-note" style="color: #4e7ac7; margin-right: 8px;"></i>
+              Notes (Optional)
+            <% end %>
+            <%= form.text_area :notes,
+                               rows: 5,
+                               placeholder: "Describe what you're feeling, what happened today, or any thoughts you'd like to remember...",
+                               style: "width: 100%; padding: 15px; border: 2px solid #e2e8f0; border-radius: 8px; font-size: 1em; font-family: inherit; resize: vertical; transition: border-color 0.3s ease;",
+                               onfocus: "this.style.borderColor='#4e7ac7'",
+                               onblur: "this.style.borderColor='#e2e8f0'" %>
+          </div>
+
+          <!-- Form Actions -->
+          <div style="display: flex; gap: 15px; justify-content: center; padding-top: 20px; border-top: 1px solid #edf2f7;">
+            <%= form.submit "Update Emotion Entry",
+                            class: "button primary large",
+                            style: "padding: 15px 30px; font-size: 1.1em; border-radius: 8px; min-width: 200px;" %>
+
+            <%= link_to "Cancel", @emotion_entry,
+                        class: "button large",
+                        style: "padding: 15px 30px; font-size: 1.1em; border-radius: 8px; text-decoration: none;" %>
+          </div>
+
+        <% end %>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<script>
+    // Initialize emotion display on page load
+    document.addEventListener('DOMContentLoaded', function() {
+        // Trigger the update to set initial values
+        const event = new Event('input');
+        const valenceSlider = document.querySelector('[data-emotion-form-target="valenceSlider"]');
+        if (valenceSlider) {
+            valenceSlider.dispatchEvent(event);
+        }
+    });
+</script>
