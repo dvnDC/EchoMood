@@ -26,6 +26,38 @@
               <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
             </div>
 
+            <div class="field" style="margin: 20px 0; padding: 15px; border: 1px solid #ddd; border-radius: 5px; background-color: #f9f9f9;">
+              <div style="display: flex; align-items: flex-start; gap: 15px;">
+                <input type="checkbox"
+                       name="user[research_consent]"
+                       id="user_research_consent"
+                       value="1"
+                       style="width: 18px !important;
+                         height: 18px !important;
+                         display: block !important;
+                         visibility: visible !important;
+                         opacity: 1 !important;
+                         position: relative !important;
+                         margin: 0 !important;
+                         padding: 0 !important;
+                         border: 2px solid #666 !important;
+                         background-color: white !important;
+                         flex-shrink: 0 !important;
+                         appearance: checkbox !important;
+                         -webkit-appearance: checkbox !important;
+                         -moz-appearance: checkbox !important;">
+                <label for="user_research_consent"
+                       style="display: block !important;
+                         cursor: pointer !important;
+                         line-height: 1.5 !important;
+                         font-size: 16px !important;
+                         color: #333 !important;
+                         margin: 0 !important;">
+                  I voluntarily consent to participate in a scientific study conducted as part of my master's thesis. I agree to the use of anonymous data that I enter in the application solely for research purposes. I have been informed that participation in the study is voluntary and that my data will be processed in accordance with applicable regulations on the protection of personal data.
+                </label>
+              </div>
+            </div>
+
             <div class="actions">
               <%= f.submit "Sign up" %>
             </div>
