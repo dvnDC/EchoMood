@@ -73,7 +73,7 @@ group :test do
   gem "selenium-webdriver"
   gem "rspec-core", "~> 3.13.3"
   gem "rspec-expectations", "~> 3.13.3"
-  gem "rspec-mocks", "~> 3.13.2"
+  gem "rspec-mocks", "~> 3.13.6"
   gem "rspec-support", "~> 3.13.2"
   gem "diff-lcs", "~> 1.6.1"
 end
